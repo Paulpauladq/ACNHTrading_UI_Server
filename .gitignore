@@ -1,0 +1,8 @@
+dist
+node_modules
+.env
+public/*.js
+public/*.js.map
+credentials.json
+.idea
+.DS_Store
