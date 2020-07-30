@@ -3,6 +3,7 @@ import {
   NavItem, Modal, Button, NavDropdown, MenuItem,
 } from 'react-bootstrap';
 
+import { LinkContainer } from 'react-router-bootstrap';
 import withToast from './withToast.jsx';
 
 class SigninNavItem extends React.Component {
@@ -98,6 +99,9 @@ class SigninNavItem extends React.Component {
       return (
         <NavDropdown title={user.givenName} id="user">
           <MenuItem onClick={this.signOut}>Sign out</MenuItem>
+          <LinkContainer to="/profile">
+            <MenuItem>Profile</MenuItem>
+          </LinkContainer>
         </NavDropdown>
       );
     }
