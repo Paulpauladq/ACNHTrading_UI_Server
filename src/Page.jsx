@@ -23,12 +23,6 @@ function AcnhNavBar({ user, onUserChange }) {
         <LinkContainer exact to="/">
           <NavItem>Home</NavItem>
         </LinkContainer>
-        <LinkContainer to="/products">
-          <NavItem>Products</NavItem>
-        </LinkContainer>
-        <LinkContainer to="/tutorial">
-          <NavItem>Tutorial</NavItem>
-        </LinkContainer>
       </Nav>
       <Col sm={5}>
         <Navbar.Form>
