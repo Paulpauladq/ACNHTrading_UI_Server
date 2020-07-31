@@ -55,6 +55,9 @@ function CategoryNavBar() {
         <LinkContainer to="/products/photos">
           <Button>Photos</Button>
         </LinkContainer>
+        <LinkContainer to="/products/posters">
+          <Button>Posters</Button>
+        </LinkContainer>
       </ButtonToolbar>
     </Grid>
   );
