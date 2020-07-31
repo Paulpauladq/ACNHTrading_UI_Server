@@ -2,33 +2,26 @@ import React from 'react';
 import {
   Navbar, Nav, NavItem, NavDropdown,
   MenuItem, Glyphicon,
-  Grid, Col,
+  Grid, Col, Button,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Contents from './Contents.jsx';
-import IssueAddNavItem from './IssueAddNavItem.jsx';
-import SignInNavItem from './SignInNavItem.jsx';
-import Search from './Search.jsx';
-import UserContext from './UserContext.js';
-import graphQLFetch from './graphQLFetch.js';
-import store from './store.js';
+import SignInNavItem from './component/SignInNavItem.jsx';
+import Search from './component/Search.jsx';
+import UserContext from './script/UserContext.js';
+import graphQLFetch from './script/graphQLFetch.js';
+import store from './script/store.js';
 
-function NavBar({ user, onUserChange }) {
+function AcnhNavBar({ user, onUserChange }) {
   return (
     <Navbar fluid>
       <Navbar.Header>
-        <Navbar.Brand>Issue Tracker</Navbar.Brand>
+        <Navbar.Brand>ACNH Trading</Navbar.Brand>
       </Navbar.Header>
       <Nav>
         <LinkContainer exact to="/">
           <NavItem>Home</NavItem>
-        </LinkContainer>
-        <LinkContainer to="/issues">
-          <NavItem>Issue List</NavItem>
-        </LinkContainer>
-        <LinkContainer to="/report">
-          <NavItem>Report</NavItem>
         </LinkContainer>
       </Nav>
       <Col sm={5}>
@@ -37,7 +30,6 @@ function NavBar({ user, onUserChange }) {
         </Navbar.Form>
       </Col>
       <Nav pullRight>
-        <IssueAddNavItem user={user} />
         <SignInNavItem user={user} onUserChange={onUserChange} />
         <NavDropdown
           id="user-dropdown"
@@ -50,6 +42,16 @@ function NavBar({ user, onUserChange }) {
         </NavDropdown>
       </Nav>
     </Navbar>
+  );
+}
+
+function CategoryNavBar() {
+  return (
+    <Grid fluid>
+      <LinkContainer to="/products/art">
+        <Button>Art</Button>
+      </LinkContainer>
+    </Grid>
   );
 }
 
@@ -104,7 +106,9 @@ export default class Page extends React.Component {
 
     return (
       <div>
-        <NavBar user={user} onUserChange={this.onUserChange} />
+        <AcnhNavBar user={user} onUserChange={this.onUserChange} />
+        <CategoryNavBar />
+        <br />
         <Grid fluid>
           <UserContext.Provider value={user}>
             <Contents />

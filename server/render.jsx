@@ -4,7 +4,7 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 
 import Page from '../src/Page.jsx';
 import template from './template.js';
-import store from '../src/store.js';
+import store from '../src/script/store.js';
 import routes from '../src/routes.js';
 
 async function render(req, res) {

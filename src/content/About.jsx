@@ -1,6 +1,6 @@
 import React from 'react';
-import store from './store.js';
-import graphQLFetch from './graphQLFetch.js';
+import store from '../script/store.js';
+import graphQLFetch from '../script/graphQLFetch.js';
 
 export default class About extends React.Component {
   static async fetchData() {

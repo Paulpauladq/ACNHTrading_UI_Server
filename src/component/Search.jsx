@@ -2,7 +2,7 @@ import React from 'react';
 import SelectAsync from 'react-select/lib/Async'; // eslint-disable-line
 import { withRouter } from 'react-router-dom';
 
-import graphQLFetch from './graphQLFetch.js';
+import graphQLFetch from '../script/graphQLFetch.js';
 import withToast from './withToast.jsx';
 
 class Search extends React.Component {
