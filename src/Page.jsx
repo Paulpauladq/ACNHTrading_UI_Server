@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Navbar, Nav, NavItem, NavDropdown,
   MenuItem, Glyphicon,
-  Grid, Col, Button,
+  Grid, Col, Button, ButtonToolbar,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -48,9 +48,14 @@ function AcnhNavBar({ user, onUserChange }) {
 function CategoryNavBar() {
   return (
     <Grid fluid>
-      <LinkContainer to="/products/art">
-        <Button>Art</Button>
-      </LinkContainer>
+      <ButtonToolbar>
+        <LinkContainer to="/products/art">
+          <Button>Art</Button>
+        </LinkContainer>
+        <LinkContainer to="/products/photos">
+          <Button>Photos</Button>
+        </LinkContainer>
+      </ButtonToolbar>
     </Grid>
   );
 }
