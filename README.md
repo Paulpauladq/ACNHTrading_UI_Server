@@ -16,7 +16,7 @@ load the data and render them using Grid and Panel.
 
 ## Snapshots and Descriptions
 * Home Page(for now)
-![Home](./images/Homepage.png)
+![Home](./images/Homepage.png)git remote add origin https://github.com/Paulpauladq/ACNHTrading_UI_Server.git
 * Sign in modal
 ![Home](./images/sign_in.png)
 * Animal Crossing official art displaying page
