@@ -16,12 +16,13 @@ parse tool to load into the MongoDB Altas cluster.
 * We created new schemas for different queries for our Animal Crossing products and the CRUD operations.
 * We added new APIs for CRUD operations in our API server.
 * For UI server, we added pages for our product category lists. The user profile page is still under construction.
+<<<<<<< Updated upstream
 * For product displaying pages, we add different components for different categories where the related API is called to 
 load the data and render them using Grid and Panel.
 
 ## Snapshots and Descriptions
 * Home Page(for now)
-![Home](./images/Homepage.png)
+![Home](./images/Homepage.png)git remote add origin https://github.com/Paulpauladq/ACNHTrading_UI_Server.git
 * Sign in modal
 ![Home](./images/sign_in.png)
 * Animal Crossing official art displaying page
