@@ -1,30 +1,15 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
 import { Pagination } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 
 import ProductPanelGrid from './ProductPanelGrid.jsx';
 
 import graphQLFetch from '../../script/graphQLFetch.js';
 import withToast from '../../component/withToast.jsx';
 import store from '../../script/store.js';
+import PageLink from '../../util/PageLink.jsx';
 
 const SECTION_SIZE = 24;
-
-function PageLink({
-  params, page, activePage, children,
-}) {
-  params.set('page', page);
-  if (page === 0) return React.cloneElement(children, { disabled: true });
-  return (
-    <LinkContainer
-      isActive={() => page === activePage}
-      to={{ search: `?${params.toString()}` }}
-    >
-      {children}
-    </LinkContainer>
-  );
-}
 
 class Fossils extends React.Component {
   static async fetchData(search, showError) {
