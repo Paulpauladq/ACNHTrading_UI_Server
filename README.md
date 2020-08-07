@@ -15,6 +15,7 @@ parse tool to load into the MongoDB Altas cluster.
 * For product displaying pages, we add different components for different categories where the related API is called to 
 load the data and render them using Grid and Panel.
 
+## Snapshots and Descriptions
 * Home Page(for now)
 ![Home](./images/Homepage.png)git remote add origin https://github.com/Paulpauladq/ACNHTrading_UI_Server.git
 * Sign in modal
