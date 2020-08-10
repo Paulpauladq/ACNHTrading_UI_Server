@@ -8,6 +8,39 @@ import graphQLFetch from '../script/graphQLFetch.js';
 import withToast from './withToast.jsx';
 
 class SigninNavItem extends React.Component {
+  static async getAcnher(user) {
+    const query = `query acnher(
+      $lookup: String! 
+      $lookupType: AcnherLookupType!
+    ) {
+      acnher(
+        lookup: $lookup 
+        lookupType: $lookupType
+      ) {
+        id
+      }
+    }`;
+
+    const data = await graphQLFetch(query, { lookup: `${user.email}`, lookupType: 'email' }, null);
+    return data;
+  }
+
+  static async createNewAcnher(user) {
+    const acnher = {
+      email: user.email,
+      nickname: user.givenName,
+      villagerList: [],
+      wishlist: [],
+    };
+    const query = `mutation acnherAdd($acnher: AcnherInputs!) {
+        acnherAdd(acnher: $acnher) {
+          id
+        }
+      }`;
+
+    await graphQLFetch(query, { acnher }, null);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,34 +63,15 @@ class SigninNavItem extends React.Component {
         });
       }
     });
+
+    const { acnher } = this.state;
+    if (acnher == null) this.loadData();
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  async createAcnherIfNotExist(user) {
-    const loadQuery = `query acnher($email: String!) {
-      acnher(email: $email) {
-        id email nickname switchId islandName
-        villagerList wishlist created
-      }
-    }`;
-
-    const data = await graphQLFetch(loadQuery, { email: `${user.email}` }, null);
-
-    if (!data) {
-      const acnher = {
-        email: user.email,
-        nickname: user.givenName,
-        villagerList: [],
-        wishlist: [],
-      };
-      const query = `mutation acnherAdd($acnher: AcnherInputs!) {
-        acnherAdd(acnher: $acnher) {
-          id
-        }
-      }`;
-
-      await graphQLFetch(query, { acnher }, null);
-    }
+  async loadData() {
+    const { user } = this.props;
+    const data = await SigninNavItem.getAcnher(user);
+    this.setState({ acnher: data ? data.acnher : {} });
   }
 
   async signIn() {
@@ -91,7 +105,10 @@ class SigninNavItem extends React.Component {
         signedIn, givenName, name, email,
       });
 
-      await this.createAcnherIfNotExist(result);
+      const achner = await SigninNavItem.getAcnher(result);
+      if (!achner) {
+        await SigninNavItem.createNewAcnher(result);
+      }
     } catch (error) {
       showError(`Error signing into the app: ${error}`);
     }
@@ -133,10 +150,13 @@ class SigninNavItem extends React.Component {
   render() {
     const { user } = this.props;
     if (user.signedIn) {
+      const { acnher } = this.state;
+      if (acnher == null) return null;
+
       return (
         <NavDropdown title={user.email} id="user">
           <MenuItem onClick={this.signOut}>Sign out</MenuItem>
-          <LinkContainer to="/profile">
+          <LinkContainer to={`/profile/${acnher.id}`}>
             <MenuItem>Profile</MenuItem>
           </LinkContainer>
         </NavDropdown>

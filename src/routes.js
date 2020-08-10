@@ -20,7 +20,7 @@ const routes = [
   { path: '/products/fossils', component: Fossils },
   { path: '/listings/details/:id', component: ListingDetail },
   { path: '/listings/latest', component: LatestListings },
-  { path: '/profile', component: Profile },
+  { path: '/profile/:id', component: Profile },
   { path: '/about', component: About },
   { path: '/', component: Home },
   { path: '*', component: NotFound },

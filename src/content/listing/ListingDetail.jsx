@@ -59,8 +59,16 @@ class ListingDetail extends React.Component {
     const { listing } = this.state;
     if (listing == null) return null;
 
-    const user = this.context;
+    const { listing: { id } } = this.state;
+    const { match: { params: { id: propsId } } } = this.props;
+    if (id == null) {
+      if (propsId != null) {
+        return <h3>{`Listing with ID ${propsId} not found.`}</h3>;
+      }
+      return null;
+    }
 
+    const user = this.context;
     const title = `${listing.productCount} x ${listing.productName}`;
 
     return (
