@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 
 import { LinkContainer } from 'react-router-bootstrap';
+import graphQLFetch from '../script/graphQLFetch.js';
 import withToast from './withToast.jsx';
 
 class SigninNavItem extends React.Component {
@@ -31,6 +32,33 @@ class SigninNavItem extends React.Component {
     });
   }
 
+  async createAcnherIfNotExist(user) {
+    const loadQuery = `query acnher($email: String!) {
+      acnher(email: $email) {
+        id email nickname switchId islandName
+        villagerList wishlist created
+      }
+    }`;
+
+    const data = await graphQLFetch(loadQuery, { email: `${user.email}` }, null);
+
+    if (!data) {
+      const acnher = {
+        email: user.email,
+        nickname: user.givenName,
+        villagerList: [],
+        wishlist: [],
+      };
+      const query = `mutation acnherAdd($acnher: AcnherInputs!) {
+        acnherAdd(acnher: $acnher) {
+          id
+        }
+      }`;
+
+      await graphQLFetch(query, { acnher }, null);
+    }
+  }
+
   async signIn() {
     this.hideModal();
     const { showError } = this.props;
@@ -53,10 +81,16 @@ class SigninNavItem extends React.Component {
       });
       const body = await response.text();
       const result = JSON.parse(body);
-      const { signedIn, givenName } = result;
+      const {
+        signedIn, givenName, name, email,
+      } = result;
 
       const { onUserChange } = this.props;
-      onUserChange({ signedIn, givenName });
+      onUserChange({
+        signedIn, givenName, name, email,
+      });
+
+      await this.createAcnherIfNotExist(result);
     } catch (error) {
       showError(`Error signing into the app: ${error}`);
     }
@@ -73,7 +107,9 @@ class SigninNavItem extends React.Component {
       const auth2 = window.gapi.auth2.getAuthInstance();
       await auth2.signOut();
       const { onUserChange } = this.props;
-      onUserChange({ signedIn: false, givenName: '' });
+      onUserChange({
+        signedIn: false, givenName: '', name: '', email: '',
+      });
     } catch (error) {
       showError(`Error signing out: ${error}`);
     }
@@ -97,7 +133,7 @@ class SigninNavItem extends React.Component {
     const { user } = this.props;
     if (user.signedIn) {
       return (
-        <NavDropdown title={user.givenName} id="user">
+        <NavDropdown title={user.email} id="user">
           <MenuItem onClick={this.signOut}>Sign out</MenuItem>
           <LinkContainer to="/profile">
             <MenuItem>Profile</MenuItem>

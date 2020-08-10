@@ -14,7 +14,7 @@ import AcnhNavBar from './component/AcnhNavBar.jsx';
 export default class Page extends React.Component {
   static async fetchData(cookie) {
     const query = `query { user {
-      signedIn givenName
+      signedIn givenName name email
     }}`;
     const data = await graphQLFetch(query, null, null, cookie);
     return data;

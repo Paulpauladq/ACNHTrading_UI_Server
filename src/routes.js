@@ -1,4 +1,5 @@
 import About from './content/About.jsx';
+import Profile from './content/Profile.jsx';
 import Art from './content/product/Art.jsx';
 import Photos from './content/product/Photos.jsx';
 import Posters from './content/product/Posters.jsx';
@@ -14,6 +15,7 @@ const routes = [
   { path: '/products/posters', component: Posters },
   { path: '/products/tools', component: Tools },
   { path: '/products/fossils', component: Fossils },
+  { path: '/profile', component: Profile },
   { path: '/about', component: About },
   { path: '/latest', component: Latest },
   { path: '/', component: Home },

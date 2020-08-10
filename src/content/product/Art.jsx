@@ -46,8 +46,8 @@ class Art extends React.Component {
     return data;
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const initialData = store.initialData || { itemList: {} };
     const {
       itemList: { items, pages },
