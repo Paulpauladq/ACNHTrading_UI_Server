@@ -6,7 +6,7 @@ import routes from './routes.js';
 export default function Contents() {
   return (
     <Switch>
-      {routes.map(attrs => <Route {...attrs} key={attrs.path} />)}
+      {routes.map(attrs => <Route exact {...attrs} key={attrs.path} />)}
     </Switch>
   );
 }

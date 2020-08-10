@@ -13,7 +13,7 @@ class ProductPanelPlain extends React.Component {
       product,
     } = this.props;
 
-    const selectLocation = { pathname: `/products/${product.variants[0].uniqueEntryId}` };
+    const selectLocation = { pathname: `/products/details/${product.variants[0].uniqueEntryId}` };
 
     return (
       <Panel bsStyle="primary">

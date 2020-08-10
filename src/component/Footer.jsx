@@ -5,11 +5,7 @@ function Footer() {
     <small>
       <hr />
       <p className="text-center">
-        Full source code available at this
-        {' '}
-        <a href="https://github.com/vasansr/pro-mern-stack-2">
-          GitHub repository
-        </a>
+        Developer: Shengfu Zhang, Ziqi Tang
       </p>
     </small>
   );
