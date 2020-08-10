@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import store from '../script/store.js';
-import withToast from '../component/withToast.jsx';
-import graphQLFetch from '../script/graphQLFetch.js';
-import UserContext from '../script/UserContext.js';
+import store from '../../script/store.js';
+import withToast from '../../component/withToast.jsx';
+import graphQLFetch from '../../script/graphQLFetch.js';
+import UserContext from '../../script/UserContext.js';
 
 class Profile extends React.Component {
   static async fetchData(email, showError) {

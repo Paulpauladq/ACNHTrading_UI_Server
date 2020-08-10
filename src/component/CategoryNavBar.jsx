@@ -6,6 +6,9 @@ function CategoryNavBar() {
   return (
     <Grid fluid>
       <ButtonToolbar>
+        <LinkContainer to="/listings/latest">
+          <Button>Latest Listing</Button>
+        </LinkContainer>
         <LinkContainer to="/products/art">
           <Button>Art</Button>
         </LinkContainer>
