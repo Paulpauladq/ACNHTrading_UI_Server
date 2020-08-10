@@ -32,6 +32,7 @@ class SigninNavItem extends React.Component {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async createAcnherIfNotExist(user) {
     const loadQuery = `query acnher($email: String!) {
       acnher(email: $email) {
