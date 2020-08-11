@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import URLSearchParams from 'url-search-params';
 import { Pagination } from 'react-bootstrap';
 
@@ -9,7 +10,7 @@ import withToast from '../../component/withToast.jsx';
 import store from '../../script/store.js';
 import PageLink from '../../util/PageLink.jsx';
 
-const SECTION_SIZE = 24;
+const SECTION_SIZE = 5;
 
 class Art extends React.Component {
   static async fetchData(search, showError) {
@@ -129,7 +130,7 @@ class Art extends React.Component {
   }
 }
 
-const ArtWithToast = withToast(Art);
+const ArtWithToast = withToast(withRouter(Art));
 ArtWithToast.fetchData = Art.fetchData;
 
 export default ArtWithToast;

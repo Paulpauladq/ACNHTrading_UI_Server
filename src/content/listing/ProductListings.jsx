@@ -9,7 +9,7 @@ import withToast from '../../component/withToast.jsx';
 import store from '../../script/store.js';
 import PageLink from '../../util/PageLink.jsx';
 
-const SECTION_SIZE = 24;
+const SECTION_SIZE = 5;
 
 class ProductListings extends React.Component {
   static async fetchData(productId, search, showError) {
@@ -88,6 +88,8 @@ class ProductListings extends React.Component {
   render() {
     const { listings } = this.state;
     if (listings == null) return null;
+
+    if (listings.length === 0) return <h3>There is currently no listing</h3>;
 
     const { pages } = this.state;
     const { location: { search } } = this.props;

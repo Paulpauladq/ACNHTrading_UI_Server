@@ -9,7 +9,7 @@ import withToast from '../../component/withToast.jsx';
 import store from '../../script/store.js';
 import PageLink from '../../util/PageLink.jsx';
 
-const SECTION_SIZE = 24;
+const SECTION_SIZE = 5;
 
 class Posters extends React.Component {
   static async fetchData(search, showError) {
