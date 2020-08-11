@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Col, Panel, Image, Thumbnail,
-  ButtonToolbar, Button, Row,
+  Col, Panel, Image, Thumbnail, Radio,
+  ButtonToolbar, Button, Row, Modal, Form,
+  FormGroup, ControlLabel, FormControl,
 } from 'react-bootstrap';
 
 import graphQLFetch from '../../script/graphQLFetch.js';
@@ -34,8 +35,12 @@ class ListingDetail extends React.Component {
     const listing = store.initialData ? store.initialData.listing : null;
     delete store.initialData;
     this.state = {
-      listing,
+      listing, showing: false,
     };
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.createNewOffer = this.createNewOffer.bind(this);
+    this.onValueChange = this.onValueChange.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +56,47 @@ class ListingDetail extends React.Component {
     }
   }
 
+  showModal() {
+    this.setState({ showing: true });
+  }
+
+  hideModal() {
+    this.setState({ showing: false });
+  }
+
+  onValueChange(event) {
+    this.setState({
+      offerType: event.target.value,
+    });
+  }
+
+  async createNewOffer(e) {
+    e.preventDefault();
+    this.hideModal();
+    const { listing, offerType } = this.state;
+    const form = document.forms.offerAdd;
+
+    const offer = {
+      listingId: listing.id,
+      sellerId: 1,
+      buyerId: 2,
+      productId: offerType,
+      productCount: parseInt(form.productCount.value, 10),
+    };
+    const query = `mutation offerAdd($offer: OfferInputs!) {
+      offerAdd(offer: $offer) {
+        id
+      }
+    }`;
+
+    const { showError, showSuccess } = this.props;
+    const data = await graphQLFetch(query, { offer }, showError);
+    if (data) {
+      showSuccess('Create new offer successfully');
+      window.location.reload(false);
+    }
+  }
+
   async loadData() {
     const { match, showError } = this.props;
     const data = await ListingDetail.fetchData(match, null, showError);
@@ -58,7 +104,7 @@ class ListingDetail extends React.Component {
   }
 
   render() {
-    const { listing } = this.state;
+    const { listing, showing } = this.state;
     if (listing == null) return null;
 
     const { listing: { id } } = this.state;
@@ -71,7 +117,6 @@ class ListingDetail extends React.Component {
     }
 
     const user = this.context;
-    const title = `${listing.productCount} x ${listing.productName}`;
     const price = listing.priceList.map((p) => {
       switch (p.productId) {
         case 'bell':
@@ -104,7 +149,7 @@ class ListingDetail extends React.Component {
       <React.Fragment>
         <Panel>
           <Panel.Heading>
-            <Panel.Title>{`${title}`}</Panel.Title>
+            <Panel.Title>{`${listing.productCount} x ${listing.productName}`}</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <Row>
@@ -112,9 +157,9 @@ class ListingDetail extends React.Component {
                 <Image src={listing.thumbnail} responsive />
               </Col>
               <Col xs={6} md={8} lg={9}>
-                <p>{listing.sellerName}</p>
-                <p className="text-muted">{listing.created.toDateString()}</p>
-                <p>{listing.note}</p>
+                <p>{`Seller Name: ${listing.sellerName}`}</p>
+                <p className="text-muted">{`Created: ${listing.created.toDateString()}`}</p>
+                <p>{`Note: ${listing.note}`}</p>
                 <p className="text-muted">Price: </p>
                 <Row>
                   {price}
@@ -124,12 +169,76 @@ class ListingDetail extends React.Component {
           </Panel.Body>
           <Panel.Footer>
             <ButtonToolbar>
-              <Button disabled={!user.signedIn} bsStyle="primary">Make an Offer</Button>
+              <Button disabled={!user.signedIn} bsStyle="primary" onClick={this.showModal}>Make an Offer</Button>
             </ButtonToolbar>
           </Panel.Footer>
         </Panel>
-
         <ListingOffers listingId={id} />
+
+        <Modal keyboard show={showing} onHide={this.hideModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Post New Offer</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Col xs={6} md={4} lg={3}>
+                <Image src={listing.thumbnail} responsive />
+              </Col>
+              <Col xs={6} md={8} lg={9}>
+                <p>{`Listing Id: ${listing.id}`}</p>
+                <p>{`Listing Product: ${listing.productName}`}</p>
+                <p>{`Product Count: ${listing.productCount}`}</p>
+              </Col>
+            </Row>
+            <Form name="offerAdd">
+              <h3>Offers</h3>
+              <FormGroup>
+                <Radio
+                  name="offerType"
+                  value="bell"
+                  inline
+                  onChange={this.onValueChange}
+                >
+                  Bell
+                </Radio>
+                {' '}
+                <Radio
+                  name="offerType"
+                  value="nmt"
+                  inline
+                  onChange={this.onValueChange}
+                >
+                  Nook Miles Ticket
+                </Radio>
+                {' '}
+                <Radio
+                  name="offerType"
+                  value="wishlist"
+                  inline
+                  onChange={this.onValueChange}
+                >
+                  Wishlist Items
+                </Radio>
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Amount</ControlLabel>
+                <FormControl name="productCount" type="number" autoFocus />
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <ButtonToolbar>
+              <Button
+                type="button"
+                bsStyle="primary"
+                onClick={this.createNewOffer}
+              >
+                Post
+              </Button>
+              <Button bsStyle="primary" onClick={this.hideModal}>Cancel</Button>
+            </ButtonToolbar>
+          </Modal.Footer>
+        </Modal>
       </React.Fragment>
     );
   }

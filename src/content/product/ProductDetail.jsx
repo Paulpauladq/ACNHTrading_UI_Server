@@ -114,7 +114,7 @@ class ProductDetail extends React.Component {
     const user = this.context;
 
     return (
-      <div>
+      <React.Fragment>
         <Panel>
           <Panel.Heading>
             <Panel.Title>{`${item.name}`}</Panel.Title>
@@ -141,7 +141,7 @@ class ProductDetail extends React.Component {
 
         <Modal keyboard show={showing} onHide={this.hideModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Post New Lissting</Modal.Title>
+            <Modal.Title>Post New Listing</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
@@ -191,7 +191,7 @@ class ProductDetail extends React.Component {
             </ButtonToolbar>
           </Modal.Footer>
         </Modal>
-      </div>
+      </React.Fragment>
     );
   }
 }
