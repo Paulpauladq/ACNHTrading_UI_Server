@@ -7,6 +7,7 @@ import store from '../../script/store.js';
 import withToast from '../../component/withToast.jsx';
 import graphQLFetch from '../../script/graphQLFetch.js';
 import UserContext from '../../script/UserContext.js';
+import ProfileNavBar from './ProfileNavBar.jsx';
 
 class Profile extends React.Component {
   static async fetchData(match, search, showError) {
@@ -118,85 +119,134 @@ class Profile extends React.Component {
     const disabled = !user.signedIn || (user.email !== acnher.email);
 
     return (
-      <Panel>
-        <Panel.Heading>
-          <Panel.Title>User Profile Page</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <Row>
-            <Col xs={6} md={4} lg={3}>
-              <p>{acnher.id}</p>
-              <p>{acnher.email}</p>
-              <p>{acnher.created.toDateString()}</p>
-            </Col>
-            <Col xs={6} md={8} lg={9}>
-              <p className="text-muted">Editable: </p>
-              <p>{acnher.nickname}</p>
-              <p>{acnher.switchId}</p>
-              <p>{acnher.islandName}</p>
-              <p>{acnher.villagerList}</p>
-              <p>{acnher.wishlist}</p>
-            </Col>
-          </Row>
-        </Panel.Body>
-        <Panel.Footer>
-          <OverlayTrigger
-            placement="right"
-            delayShow={1000}
-            overlay={<Tooltip id="create-issue">Edit Profile</Tooltip>}
-          >
-            <Button disabled={disabled} bsStyle="primary" onClick={this.showModal}>
-              Edit
-            </Button>
-          </OverlayTrigger>
-
-          <Modal keyboard show={showing} onHide={this.hideModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Edit Profile</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form name="ProfileEdit">
-                <FormGroup>
-                  <ControlLabel>
+      <React.Fragment>
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title>User Profile Page</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <Row>
+              <Col xs={6} md={4} lg={3}>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={1000}
+                  overlay={<Tooltip id="email-label">Email</Tooltip>}
+                >
+                  <p>
+                    <i className="fas fa-envelope" />
+                    {' '}
+                    {acnher.email}
+                  </p>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={1000}
+                  overlay={<Tooltip id="updated-label">Updated time</Tooltip>}
+                >
+                  <p>
+                    <i className="far fa-calendar-alt" />
+                    {' '}
+                    {acnher.created.toDateString()}
+                  </p>
+                </OverlayTrigger>
+              </Col>
+              <Col xs={6} md={8} lg={9}>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={1000}
+                  overlay={<Tooltip id="nickname-label">Nickname</Tooltip>}
+                >
+                  <p>
                     <i className="fas fa-swimmer" />
                     {' '}
-                    Nickname
-                  </ControlLabel>
-                  <FormControl name="nickname" autoFocus />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>
+                    {acnher.nickname}
+                  </p>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={1000}
+                  overlay={<Tooltip id="switchId-label">Switch ID</Tooltip>}
+                >
+                  <p>
                     <i className="fab fa-nintendo-switch fa-spin" />
                     {' '}
-                    SwitchId
-                  </ControlLabel>
-                  <FormControl name="switchId" />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>
+                    {acnher.switchId}
+                  </p>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={1000}
+                  overlay={<Tooltip id="islandName-label">Island name</Tooltip>}
+                >
+                  <p>
                     <i className="fas fa-tree" />
                     {' '}
-                    IslandName
-                  </ControlLabel>
-                  <FormControl name="islandName" />
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <ButtonToolbar>
-                <Button
-                  type="button"
-                  bsStyle="primary"
-                  onClick={this.handleSubmit}
-                >
-                  Submit
-                </Button>
-                <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
-              </ButtonToolbar>
-            </Modal.Footer>
-          </Modal>
-        </Panel.Footer>
-      </Panel>
+                    {acnher.islandName}
+                  </p>
+                </OverlayTrigger>
+              </Col>
+            </Row>
+          </Panel.Body>
+          <Panel.Footer>
+            <OverlayTrigger
+              placement="right"
+              delayShow={1000}
+              overlay={<Tooltip id="create-issue">Edit Profile</Tooltip>}
+            >
+              <Button disabled={disabled} bsStyle="primary" onClick={this.showModal}>
+                Edit
+              </Button>
+            </OverlayTrigger>
+
+            <Modal keyboard show={showing} onHide={this.hideModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Edit Profile</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form name="ProfileEdit">
+                  <FormGroup>
+                    <ControlLabel>
+                      <i className="fas fa-swimmer" />
+                      {' '}
+                      Nickname
+                    </ControlLabel>
+                    <FormControl name="nickname" autoFocus />
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>
+                      <i className="fab fa-nintendo-switch fa-spin" />
+                      {' '}
+                      SwitchId
+                    </ControlLabel>
+                    <FormControl name="switchId" />
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>
+                      <i className="fas fa-tree" />
+                      {' '}
+                      IslandName
+                    </ControlLabel>
+                    <FormControl name="islandName" />
+                  </FormGroup>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <ButtonToolbar>
+                  <Button
+                    type="button"
+                    bsStyle="primary"
+                    onClick={this.handleSubmit}
+                  >
+                    Submit
+                  </Button>
+                  <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
+                </ButtonToolbar>
+              </Modal.Footer>
+            </Modal>
+          </Panel.Footer>
+        </Panel>
+        <ProfileNavBar />
+      </React.Fragment>
     );
   }
 }
