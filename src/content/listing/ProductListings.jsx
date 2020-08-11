@@ -2,7 +2,7 @@ import React from 'react';
 import URLSearchParams from 'url-search-params';
 import { Pagination } from 'react-bootstrap';
 
-import ProductPanelGrid from './ProductPanelGrid.jsx';
+import ListingPanelGrid from './ListingPanelGrid.jsx';
 
 import graphQLFetch from '../../script/graphQLFetch.js';
 import withToast from '../../component/withToast.jsx';
@@ -11,29 +11,31 @@ import PageLink from '../../util/PageLink.jsx';
 
 const SECTION_SIZE = 24;
 
-class Photos extends React.Component {
-  static async fetchData(search, showError) {
+class ProductListings extends React.Component {
+  static async fetchData(productId, search, showError) {
     const params = new URLSearchParams(search);
-    const vars = { sourceSheet: 'Photos' };
+    const vars = { status: 'New', productId };
 
     let page = parseInt(params.get('page'), 10);
     if (Number.isNaN(page)) page = 1;
     vars.page = page;
 
-    const query = `query itemList(
-      $sourceSheet: String
+    const query = `query listingList(
+      $status: ListingStatus
+      $productId: String
       $page: Int
     ) {
-      itemList(
-        sourceSheet: $sourceSheet
+      listingList(
+        status: $status
+        productId: $productId
         page: $page
       ) {
-        items {
-          name 
-          sourceSheet 
-          variants { 
-            uniqueEntryId 
-            image 
+        listings {
+          id status sellerId sellerName 
+          productId productName productCount 
+          thumbnail created note 
+          priceList {
+            productId productCount
           }
         }
         pages
@@ -46,20 +48,20 @@ class Photos extends React.Component {
 
   constructor() {
     super();
-    const initialData = store.initialData || { itemList: {} };
+    const initialData = store.initialData || { listingList: {} };
     const {
-      itemList: { items, pages },
+      listingList: { listings, pages },
     } = initialData;
     delete store.initialData;
     this.state = {
-      items,
+      listings,
       pages,
     };
   }
 
   componentDidMount() {
-    const { items } = this.state;
-    if (items == null) this.loadData();
+    const { listings } = this.state;
+    if (listings == null) this.loadData();
   }
 
   componentDidUpdate(prevProps) {
@@ -73,19 +75,19 @@ class Photos extends React.Component {
   }
 
   async loadData() {
-    const { location: { search }, showError } = this.props;
-    const data = await Photos.fetchData(search, showError);
+    const { location: { search }, showError, productId } = this.props;
+    const data = await ProductListings.fetchData(productId, search, showError);
     if (data) {
       this.setState({
-        items: data.itemList.items,
-        pages: data.itemList.pages,
+        listings: data.listingList.listings,
+        pages: data.listingList.pages,
       });
     }
   }
 
   render() {
-    const { items } = this.state;
-    if (items == null) return null;
+    const { listings } = this.state;
+    if (listings == null) return null;
 
     const { pages } = this.state;
     const { location: { search } } = this.props;
@@ -110,8 +112,9 @@ class Photos extends React.Component {
 
     return (
       <React.Fragment>
-        <ProductPanelGrid
-          products={items}
+        <h3>Current Listing</h3>
+        <ListingPanelGrid
+          listings={listings}
         />
         <Pagination>
           <PageLink params={params} page={prevSection}>
@@ -127,7 +130,7 @@ class Photos extends React.Component {
   }
 }
 
-const ArtWithToast = withToast(Photos);
-ArtWithToast.fetchData = Photos.fetchData;
+const ProductListingsWithToast = withToast(ProductListings);
+ProductListingsWithToast.fetchData = ProductListings.fetchData;
 
-export default ArtWithToast;
+export default ProductListingsWithToast;
