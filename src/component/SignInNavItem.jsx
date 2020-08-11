@@ -6,6 +6,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import graphQLFetch from '../script/graphQLFetch.js';
 import withToast from './withToast.jsx';
+import store from '../script/store.js';
 
 class SigninNavItem extends React.Component {
   static async getAcnher(user) {
@@ -43,9 +44,13 @@ class SigninNavItem extends React.Component {
 
   constructor(props) {
     super(props);
+    const acnher = store.initialData ? store.initialData.acnher : null;
+    delete store.initialData;
+
     this.state = {
       showing: false,
       disabled: true,
+      acnher,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);

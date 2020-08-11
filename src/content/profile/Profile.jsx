@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import {
   Button, ButtonToolbar, Col, Panel, Row,
 } from 'react-bootstrap';
