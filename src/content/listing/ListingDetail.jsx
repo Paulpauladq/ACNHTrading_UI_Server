@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   Col, Panel, Image, Thumbnail, Radio,
   ButtonToolbar, Button, Row, Modal, Form,
@@ -56,18 +57,18 @@ class ListingDetail extends React.Component {
     }
   }
 
+  onValueChange(event) {
+    this.setState({
+      offerType: event.target.value,
+    });
+  }
+
   showModal() {
     this.setState({ showing: true });
   }
 
   hideModal() {
     this.setState({ showing: false });
-  }
-
-  onValueChange(event) {
-    this.setState({
-      offerType: event.target.value,
-    });
   }
 
   async createNewOffer(e) {
@@ -78,7 +79,7 @@ class ListingDetail extends React.Component {
 
     const offer = {
       listingId: listing.id,
-      sellerId: 1,
+      sellerId: listing.sellerId,
       buyerId: 2,
       productId: offerType,
       productCount: parseInt(form.productCount.value, 10),
@@ -246,7 +247,7 @@ class ListingDetail extends React.Component {
 
 ListingDetail.contextType = UserContext;
 
-const ListingDetailWithToast = withToast(ListingDetail);
+const ListingDetailWithToast = withToast(withRouter(ListingDetail));
 ListingDetailWithToast.fetchData = ListingDetail.fetchData;
 
 export default ListingDetailWithToast;
