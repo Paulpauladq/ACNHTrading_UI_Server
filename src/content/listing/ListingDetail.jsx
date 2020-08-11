@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  Col, Panel, Image,
+  Col, Panel, Image, Thumbnail,
   ButtonToolbar, Button, Row,
 } from 'react-bootstrap';
 
 import graphQLFetch from '../../script/graphQLFetch.js';
 import withToast from '../../component/withToast.jsx';
+import listingPriceImage from '../../script/listingPriceImage.js';
 import store from '../../script/store.js';
 import UserContext from '../../script/UserContext.js';
 
@@ -70,6 +71,33 @@ class ListingDetail extends React.Component {
 
     const user = this.context;
     const title = `${listing.productCount} x ${listing.productName}`;
+    const price = listing.priceList.map((p) => {
+      switch (p.productId) {
+        case 'bell':
+          return (
+            <Col xs={1}>
+              <Thumbnail src={listingPriceImage.bell} alt="10x10" />
+              {` x ${p.productCount}`}
+            </Col>
+          );
+        case 'nmt':
+          return (
+            <Col xs={1}>
+              <Thumbnail src={listingPriceImage.nmt} alt="10x10" />
+              {` x ${p.productCount}`}
+            </Col>
+          );
+        case 'wishlist':
+          return (
+            <Col xs={1}>
+              <Thumbnail src={listingPriceImage.wishlist} alt="10x10" />
+              {` x ${p.productCount}`}
+            </Col>
+          );
+        default:
+          return null;
+      }
+    });
 
     return (
       <Panel>
@@ -86,7 +114,9 @@ class ListingDetail extends React.Component {
               <p className="text-muted">{listing.created.toDateString()}</p>
               <p>{listing.note}</p>
               <p className="text-muted">Price: </p>
-              <p>{listing.priceList.toString()}</p>
+              <Row>
+                {price}
+              </Row>
             </Col>
           </Row>
         </Panel.Body>
