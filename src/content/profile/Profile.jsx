@@ -74,18 +74,17 @@ class Profile extends React.Component {
     };
     const { acnher: { id } } = this.state;
     const query = `mutation acnherUpdate(
-                             $id: Int!
-                             $changes: AcnherUpdateInputs!
-                           ) {
-                             acnherUpdate(
-                               id: $id
-                               changes: $changes
-                             ) {
-                               id email nickname switchId
-                               islandName villagerList wishlist created
-                             }
-                           }`;
-
+      $id: Int!
+      $changes: AcnherUpdateInputs!
+    ) {
+      acnherUpdate(
+        id: $id
+        changes: $changes
+      ) {
+        id email nickname switchId
+        islandName villagerList wishlist created
+      }
+    }`;
 
     const data = await graphQLFetch(query, { id: parseInt(id, 10), changes });
 
