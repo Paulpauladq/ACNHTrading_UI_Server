@@ -245,7 +245,7 @@ class Profile extends React.Component {
             </Modal>
           </Panel.Footer>
         </Panel>
-        <ProfileNavBar />
+        <ProfileNavBar id={id} />
       </React.Fragment>
     );
   }
