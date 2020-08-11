@@ -1,8 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import URLSearchParams from 'url-search-params';
 import { Pagination } from 'react-bootstrap';
 
-import ListingPanelGrid from './ListingPanelGrid.jsx';
+import OfferPanelGrid from './OfferPanelGrid.jsx';
 
 import graphQLFetch from '../../script/graphQLFetch.js';
 import withToast from '../../component/withToast.jsx';
@@ -11,32 +12,26 @@ import PageLink from '../../util/PageLink.jsx';
 
 const SECTION_SIZE = 5;
 
-class ProductListings extends React.Component {
-  static async fetchData(productId, search, showError) {
+class ListingOffers extends React.Component {
+  static async fetchData(listingId, search, showError) {
     const params = new URLSearchParams(search);
-    const vars = { status: 'New', productId };
+    const vars = { listingId };
 
     let page = parseInt(params.get('page'), 10);
     if (Number.isNaN(page)) page = 1;
     vars.page = page;
 
-    const query = `query listingList(
-      $status: ListingStatus
-      $productId: String
+    const query = `query offerList(
+      $listingId: Int
       $page: Int
     ) {
-      listingList(
-        status: $status
-        productId: $productId
+      offerList(
+        listingId: $listingId
         page: $page
       ) {
-        listings {
-          id status sellerId sellerName 
-          productId productName productCount 
-          thumbnail created note 
-          priceList {
-            productId productCount
-          }
+        offers {
+          id status listingId sellerId buyerId 
+          productId productCount created
         }
         pages
       }
@@ -48,20 +43,20 @@ class ProductListings extends React.Component {
 
   constructor() {
     super();
-    const initialData = store.initialData || { listingList: {} };
+    const initialData = store.initialData || { offerList: {} };
     const {
-      listingList: { listings, pages },
+      offerList: { offers, pages },
     } = initialData;
     delete store.initialData;
     this.state = {
-      listings,
+      offers,
       pages,
     };
   }
 
   componentDidMount() {
-    const { listings } = this.state;
-    if (listings == null) this.loadData();
+    const { offers } = this.state;
+    if (offers == null) this.loadData();
   }
 
   componentDidUpdate(prevProps) {
@@ -75,21 +70,21 @@ class ProductListings extends React.Component {
   }
 
   async loadData() {
-    const { location: { search }, showError, productId } = this.props;
-    const data = await ProductListings.fetchData(productId, search, showError);
+    const { location: { search }, showError, listingId } = this.props;
+    const data = await ListingOffers.fetchData(listingId, search, showError);
     if (data) {
       this.setState({
-        listings: data.listingList.listings,
-        pages: data.listingList.pages,
+        offers: data.offerList.offers,
+        pages: data.offerList.pages,
       });
     }
   }
 
   render() {
-    const { listings } = this.state;
-    if (listings == null) return null;
+    const { offers } = this.state;
+    if (offers == null) return null;
 
-    if (listings.length === 0) return <h3>There is currently no listing</h3>;
+    if (offers.length === 0) return <h3>There is currently no offer</h3>;
 
     const { pages } = this.state;
     const { location: { search } } = this.props;
@@ -114,9 +109,9 @@ class ProductListings extends React.Component {
 
     return (
       <React.Fragment>
-        <h3>Current Listings</h3>
-        <ListingPanelGrid
-          listings={listings}
+        <h3>Current Offers</h3>
+        <OfferPanelGrid
+          offers={offers}
         />
         <Pagination>
           <PageLink params={params} page={prevSection}>
@@ -132,7 +127,7 @@ class ProductListings extends React.Component {
   }
 }
 
-const ProductListingsWithToast = withToast(ProductListings);
-ProductListingsWithToast.fetchData = ProductListings.fetchData;
+const ListingOffersWithToast = withToast(withRouter(ListingOffers));
+ListingOffersWithToast.fetchData = ListingOffers.fetchData;
 
-export default ProductListingsWithToast;
+export default ListingOffersWithToast;

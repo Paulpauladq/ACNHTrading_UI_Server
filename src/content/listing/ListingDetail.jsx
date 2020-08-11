@@ -9,6 +9,7 @@ import withToast from '../../component/withToast.jsx';
 import listingPriceImage from '../../script/listingPriceImage.js';
 import store from '../../script/store.js';
 import UserContext from '../../script/UserContext.js';
+import ListingOffers from '../offer/ListingOffers.jsx';
 
 class ListingDetail extends React.Component {
   static async fetchData(match, search, showError) {
@@ -100,32 +101,36 @@ class ListingDetail extends React.Component {
     });
 
     return (
-      <Panel>
-        <Panel.Heading>
-          <Panel.Title>{`${title}`}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <Row>
-            <Col xs={6} md={4} lg={3}>
-              <Image src={listing.thumbnail} responsive />
-            </Col>
-            <Col xs={6} md={8} lg={9}>
-              <p>{listing.sellerName}</p>
-              <p className="text-muted">{listing.created.toDateString()}</p>
-              <p>{listing.note}</p>
-              <p className="text-muted">Price: </p>
-              <Row>
-                {price}
-              </Row>
-            </Col>
-          </Row>
-        </Panel.Body>
-        <Panel.Footer>
-          <ButtonToolbar>
-            <Button disabled={!user.signedIn} bsStyle="primary">Make an Offer</Button>
-          </ButtonToolbar>
-        </Panel.Footer>
-      </Panel>
+      <React.Fragment>
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title>{`${title}`}</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <Row>
+              <Col xs={6} md={4} lg={3}>
+                <Image src={listing.thumbnail} responsive />
+              </Col>
+              <Col xs={6} md={8} lg={9}>
+                <p>{listing.sellerName}</p>
+                <p className="text-muted">{listing.created.toDateString()}</p>
+                <p>{listing.note}</p>
+                <p className="text-muted">Price: </p>
+                <Row>
+                  {price}
+                </Row>
+              </Col>
+            </Row>
+          </Panel.Body>
+          <Panel.Footer>
+            <ButtonToolbar>
+              <Button disabled={!user.signedIn} bsStyle="primary">Make an Offer</Button>
+            </ButtonToolbar>
+          </Panel.Footer>
+        </Panel>
+
+        <ListingOffers listingId={id} />
+      </React.Fragment>
     );
   }
 }
