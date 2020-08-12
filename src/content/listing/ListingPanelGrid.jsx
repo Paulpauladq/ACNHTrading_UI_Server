@@ -24,7 +24,7 @@ class ListingPanelPlain extends React.Component {
         <Panel.Body>
           <Row>
             <Col xs={6} md={4} lg={3}>
-              <Image src={listing.thumbnail} responsive />
+              <Image src={listing.thumbnail} className="img-responsive" />
             </Col>
             <Col xs={6} md={8} lg={9}>
               <p>{listing.sellerName}</p>

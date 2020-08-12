@@ -7,7 +7,7 @@ import store from '../../script/store.js';
 import withToast from '../../component/withToast.jsx';
 import graphQLFetch from '../../script/graphQLFetch.js';
 import UserContext from '../../script/UserContext.js';
-import ProfileNavBar from './ProfileNavBar.jsx';
+import ProfileTabBar from './ProfileTabBar.jsx';
 
 class Profile extends React.Component {
   static async fetchData(match, search, showError) {
@@ -253,7 +253,7 @@ class Profile extends React.Component {
             </Modal>
           </Panel.Footer>
         </Panel>
-        <ProfileNavBar id={id} />
+        <ProfileTabBar id={id} />
       </React.Fragment>
     );
   }

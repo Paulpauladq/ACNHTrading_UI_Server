@@ -8,7 +8,7 @@ import SignInNavItem from './SignInNavItem.jsx';
 
 export default function AcnhNavBar({ user, onUserChange }) {
   return (
-    <Navbar fluid>
+    <Navbar id="user-navbar" fluid>
       <Navbar.Header>
         <Navbar.Brand>ACNH Trading</Navbar.Brand>
       </Navbar.Header>

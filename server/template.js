@@ -17,6 +17,21 @@ export default function template(body, initialData, userData) {
   <style>
     table.table-hover tr {cursor: pointer;}
     .panel-title a {display: block; width: 100%; cursor: pointer;}
+    .thumbnail{
+  background-image: url(https://i.redd.it/y5mzeig307b41.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+}
+
+  .navbar {
+  background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fnintendosoup.com%2Fdownload-three-cute-animal-crossing-new-horizons-wallpapers-from-walmart%2F&psig=AOvVaw34eWvMcNumt746wOr08I_0&ust=1597307494605000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOinq6OglesCFQAAAAAdAAAAABAi);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+}
   </style>
 </head>
 

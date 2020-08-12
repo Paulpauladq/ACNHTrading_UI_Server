@@ -1,10 +1,10 @@
 import {
-  Button, ButtonGroup, Tabs, Tab,
+  Tabs, Tab,
 } from 'react-bootstrap';
 import React from 'react';
 import AcnherListing from '../listing/AcnherListing.jsx';
 
-function ProfileNavBar(props) {
+function ProfileTabBar(props) {
   const { id } = props;
 
   return (
@@ -20,31 +20,9 @@ function ProfileNavBar(props) {
           Tab 3 content
         </Tab>
       </Tabs>
-      <ButtonGroup>
-        <Button>
-          <i className="fas fa-list" />
-          {' '}
-          Listings
-        </Button>
-
-
-        <Button>
-          <i className="fas fa-user-tag" />
-          {' '}
-          Offers
-        </Button>
-
-
-        <Button>
-          <i className="fas fa-grin-hearts" />
-          {' '}
-          WishList
-        </Button>
-
-      </ButtonGroup>
     </React.Fragment>
 
   );
 }
 
-export default ProfileNavBar;
+export default ProfileTabBar;

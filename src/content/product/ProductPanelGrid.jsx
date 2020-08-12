@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
-  Panel, Row, Col, Grid, Thumbnail,
+  Panel, Row, Col, Grid, Image, Button, Thumbnail,
 } from 'react-bootstrap';
 
 import UserContext from '../../script/UserContext.js';
@@ -16,15 +16,15 @@ class ProductPanelPlain extends React.Component {
     const selectLocation = { pathname: `/products/details/${product.variants[0].uniqueEntryId}` };
 
     return (
-      <Panel bsStyle="primary">
-        <Panel.Heading>
+      <Panel id="ProductPanelOutter" bsStyle="primary">
+        <Panel.Heading id="ProductPanelHeading">
           <Panel.Title>{product.name}</Panel.Title>
         </Panel.Heading>
-        <Panel.Body>
-          <Thumbnail href={selectLocation.pathname} alt="180x180" src={product.variants[0].image} />
+        <Panel.Body id="ProductPanel">
+          <Thumbnail id="ProductImg" className="img-fluid img-thumbnail" href={selectLocation.pathname} src={product.variants[0].image} />
         </Panel.Body>
-        <Panel.Footer>
-          {product.variants.length}
+        <Panel.Footer id="ProductPanelFooter" className="text-center">
+          {`Variation Count: ${product.variants.length}`}
         </Panel.Footer>
       </Panel>
     );
