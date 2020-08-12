@@ -23,12 +23,63 @@ export default function template(body, initialData, userData) {
         border-color: #01DFA5;
     }
     
-    .panel-body, .panel-footer, .panel-heading, .btn, .nav-tabs {
+    .panel-body, .panel-footer, .panel-heading, .btn, .modal {
         font-family: 'Baloo Tamma 2', cursive;
         font-size: 15px;
         font-weight: bold;
     }
     
+    .tab-content, .tab-pane, .form-group control-label{
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
+        font-weight: bold;
+        color: darkgrey;
+    }
+    
+    .nav-tabs > li.active > a {
+        color: #01DFA5;
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+    .nav-tabs > li > a {
+        color: darkgrey;
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
+        font-weight: bold;
+     }
+    
+    .btn {
+        background-color:  #01DFA5;
+        border: #01DFA5;
+    }
+    
+    .btn :focus {
+        background-color:  #01DFA5;
+        border: #01DFA5;
+    }
+    
+    .btn.btn-success.active,
+    .btn.btn-success:active {
+      color: #fff;
+      background-color: darkgrey;
+      border-color: darkgrey;
+      outline: none;
+    }
+    .btn.btn-success.active.focus,
+    .btn.btn-success.active:focus,
+    .btn.btn-success.active:hover,
+    .btn.btn-success:active.focus,
+    .btn.btn-success:active:focus,
+    .btn.btn-success:active:hover {
+      color: #fff;
+      background-color: darkgrey;
+      border-color: darkgrey;
+      outline: none;
+      box-shadow: none;
+    }
+
    .panel {
         border-color: #01DFA5;
     }
@@ -48,7 +99,7 @@ export default function template(body, initialData, userData) {
         font-weight: bold;
     }
     
-    #ProductImg{
+    #product-thumbnail{
         background-image: url(https://i.redd.it/y5mzeig307b41.png);
         background-size: cover;
         background-position: center;
@@ -65,6 +116,19 @@ export default function template(body, initialData, userData) {
         background-color:  #01DFA5;
         border: #01DFA5;
     }
+    
+    #listing-detail-button :focus, #listing-detail-button :hover, #profile-edit-btn :focus, #profile-edit-btn :hover{
+        background-color:  darkgrey;
+        border: darkgrey;
+    }
+    
+    #product-detail-button-bar > .btn, #listing-detail-btn-bar > .btn {
+        color: #fff;
+        background-color: #01DFA5;
+        border-color: #01DFA5;
+        outline: none;
+        box-shadow: none;
+    }
 
     .navbar {
         background-image: url(https://wallpaperaccess.com/full/2317617.jpg);
@@ -76,22 +140,44 @@ export default function template(body, initialData, userData) {
         font-weight: bold;
     }
     
-    .pagination > li > a.active {
-        background-color: #01DFA5;
-        color: white;
-    }
-
-    .pagination > li > a:hover:not(.active) {background-color: darkgrey;}
-    
-    #home-nav-item, #user-email, #user-dropdown {
+    .pagination > li > a
+    {
+        background-color: white;
         color: #01DFA5;
+        border: 0px;
+        border-radius: 5px;
+    }
+    
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover
+    {
+        color: darkgrey;
+        background-color: #eee;
+    }
+    
+    .pagination > .active > a
+    {
+        color: white;
+        background-color: #01DFA5 !Important;
+        border: solid 1px #01DFA5 !Important;
+        border-radius: 5px;
+    }
+    
+    .pagination > .active > a:hover
+    {
+        background-color: #01DFA5 !Important;
+        border: solid 1px #01DFA5;
+        border-radius: 5px;
     }
     
     #category-button-toolbar > .btn  {
+        background-color: white;
         color: darkgrey;
     }
     
-    #listing-panel-body {
+    #listing-panel-body, .modal, .panel-body {
         color: darkgrey;
     }
     
@@ -99,10 +185,20 @@ export default function template(body, initialData, userData) {
         color: #01DFA5;
         font-size: 18px;
     }
-
-    #user-email :hover{
-        color: grey;
+    
+    #home-nav-item, #user-dropdown, #user-email {
+        color: #01DFA5;
     }
+    
+    .form-control :focus {
+        border-color: #01DFA5;
+        box-shadow: inset 0 1px 1px #01DFA5, 0 0 8px #01DFA5;
+    }
+    
+    
+
+
+
   </style>
 </head>
 

@@ -198,14 +198,14 @@ class ListingDetail extends React.Component {
             </Row>
           </Panel.Body>
           <Panel.Footer>
-            <ButtonToolbar>
+            <ButtonToolbar id="listing-detail-btn-bar">
               <Button disabled={!user.signedIn} bsStyle="primary" onClick={this.showModal}>Make an Offer</Button>
             </ButtonToolbar>
           </Panel.Footer>
         </Panel>
         <ListingOffers listingId={id} />
 
-        <Modal keyboard show={showing} onHide={this.hideModal}>
+        <Modal id="listing-detail-modal" keyboard show={showing} onHide={this.hideModal}>
           <Modal.Header closeButton>
             <Modal.Title>Post New Offer</Modal.Title>
           </Modal.Header>

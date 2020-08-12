@@ -25,7 +25,7 @@ class ListingPanelPlain extends React.Component {
         <Panel.Body id="listing-panel-body">
           <Row>
             <Col xs={6} md={4} lg={3}>
-              <Thumbnail id="ProductImg" className="img-fluid img-thumbnail" href={productLocation.pathname} src={listing.thumbnail} />
+              <Thumbnail className="img-fluid img-thumbnail" href={productLocation.pathname} src={listing.thumbnail} />
             </Col>
             <Col xs={6} md={8} lg={9}>
               <p>{`Seller: ${listing.sellerName}`}</p>

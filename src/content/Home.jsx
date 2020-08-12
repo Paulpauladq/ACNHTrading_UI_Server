@@ -6,7 +6,7 @@ import {
 function Home() {
   return (
     <React.Fragment>
-      <Jumbotron>
+      <Jumbotron id="home-jumb">
         <h1>
           Welcome To ACNH Trading
         </h1>

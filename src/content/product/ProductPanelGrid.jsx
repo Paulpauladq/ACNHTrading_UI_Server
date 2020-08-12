@@ -16,14 +16,14 @@ class ProductPanelPlain extends React.Component {
     const selectLocation = { pathname: `/products/details/${product.variants[0].uniqueEntryId}` };
 
     return (
-      <Panel id="ProductPanelOutter" bsStyle="primary">
-        <Panel.Heading id="ProductPanelHeading">
+      <Panel bsStyle="primary">
+        <Panel.Heading>
           <Panel.Title>{product.name}</Panel.Title>
         </Panel.Heading>
-        <Panel.Body id="ProductPanel">
-          <Thumbnail id="ProductImg" className="img-fluid img-thumbnail" href={selectLocation.pathname} src={product.variants[0].image} />
+        <Panel.Body>
+          <Thumbnail id="product-thumbnail" className="img-fluid img-thumbnail" href={selectLocation.pathname} src={product.variants[0].image} />
         </Panel.Body>
-        <Panel.Footer id="ProductPanelFooter" className="text-center">
+        <Panel.Footer className="text-center">
           {`Variation Count: ${product.variants.length}`}
         </Panel.Footer>
       </Panel>

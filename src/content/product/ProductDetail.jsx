@@ -205,7 +205,7 @@ class ProductDetail extends React.Component {
             </Row>
           </Panel.Body>
           <Panel.Footer>
-            <ButtonToolbar>
+            <ButtonToolbar id="product-detail-button-bar">
               <Button disabled={!user.signedIn} bsStyle="primary" onClick={this.showModal}>Post New Listing</Button>
               <Button disabled={!user.signedIn} bsStyle="primary" onClick={this.saveItemToWishlist}>Save to Wishlist</Button>
             </ButtonToolbar>
@@ -213,7 +213,7 @@ class ProductDetail extends React.Component {
         </Panel>
         <ProductListings productId={id} location={search} />
 
-        <Modal keyboard show={showing} onHide={this.hideModal}>
+        <Modal id="product-detail-modal" keyboard show={showing} onHide={this.hideModal}>
           <Modal.Header closeButton>
             <Modal.Title>Post New Listing</Modal.Title>
           </Modal.Header>
