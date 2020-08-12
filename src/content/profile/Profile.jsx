@@ -19,8 +19,8 @@ class Profile extends React.Component {
         lookup: $lookup 
         lookupType: $lookupType
       ) {
-        id email nickname switchId islandName
-        villagerList created
+        id email nickname switchId 
+        islandName villagerList created 
         wishlist {
           uniqueEntryId itemName thumbnail
         }
@@ -87,8 +87,8 @@ class Profile extends React.Component {
         id: $id
         changes: $changes
       ) {
-        id email nickname switchId
-        islandName villagerList created
+        id email nickname switchId 
+        islandName villagerList created 
         wishlist {
           uniqueEntryId itemName thumbnail
         }

@@ -40,8 +40,8 @@ class ListingDetail extends React.Component {
         lookup: $lookup 
         lookupType: $lookupType
       ) {
-        id email nickname switchId islandName
-        villagerList created
+        id email nickname switchId 
+        islandName villagerList created 
         wishlist {
           uniqueEntryId itemName thumbnail
         }
