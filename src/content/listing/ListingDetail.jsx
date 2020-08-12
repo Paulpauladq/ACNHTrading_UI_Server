@@ -31,12 +31,31 @@ class ListingDetail extends React.Component {
     return result;
   }
 
+  static async getAcnher(userContext) {
+    const query = `query acnher(
+      $lookup: String! 
+      $lookupType: AcnherLookupType!
+    ) {
+      acnher(
+        lookup: $lookup 
+        lookupType: $lookupType
+      ) {
+        id email nickname switchId islandName
+        villagerList wishlist created
+      }
+    }`;
+
+    const result = await graphQLFetch(query, { lookup: `${userContext.email}`, lookupType: 'email' }, null);
+    return result;
+  }
+
   constructor() {
     super();
     const listing = store.initialData ? store.initialData.listing : null;
+    const acnher = store.initialData ? store.initialData.acnher : null;
     delete store.initialData;
     this.state = {
-      listing, showing: false,
+      listing, showing: false, acnher,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -45,15 +64,15 @@ class ListingDetail extends React.Component {
   }
 
   componentDidMount() {
-    const { listing } = this.state;
-    if (listing == null) this.loadData();
+    const { listing, acnher } = this.state;
+    if (listing == null || acnher == null) this.loadData(this.context);
   }
 
   componentDidUpdate(prevProps) {
     const { match: { params: { id: prevId } } } = prevProps;
     const { match: { params: { id } } } = this.props;
     if (id !== prevId) {
-      this.loadData();
+      this.loadData(this.context);
     }
   }
 
@@ -64,23 +83,29 @@ class ListingDetail extends React.Component {
   }
 
   showModal() {
-    this.setState({ showing: true });
+    this.setState({ showing: true, offerType: 'bell' });
   }
 
   hideModal() {
-    this.setState({ showing: false });
+    this.setState({ showing: false, offerType: null });
   }
 
   async createNewOffer(e) {
     e.preventDefault();
     this.hideModal();
-    const { listing, offerType } = this.state;
+    const { listing, offerType, acnher } = this.state;
+    const { showError, showSuccess } = this.props;
     const form = document.forms.offerAdd;
+
+    if (!form.productCount.value) {
+      showError('Number of product must be specified...');
+      return;
+    }
 
     const offer = {
       listingId: listing.id,
       sellerId: listing.sellerId,
-      buyerId: 2,
+      buyerId: acnher.id,
       productId: offerType,
       productCount: parseInt(form.productCount.value, 10),
     };
@@ -90,7 +115,6 @@ class ListingDetail extends React.Component {
       }
     }`;
 
-    const { showError, showSuccess } = this.props;
     const data = await graphQLFetch(query, { offer }, showError);
     if (data) {
       showSuccess('Create new offer successfully');
@@ -98,10 +122,12 @@ class ListingDetail extends React.Component {
     }
   }
 
-  async loadData() {
+  async loadData(userContext) {
     const { match, showError } = this.props;
     const data = await ListingDetail.fetchData(match, null, showError);
     this.setState({ listing: data ? data.listing : {} });
+    const acnherData = await ListingDetail.getAcnher(userContext, showError);
+    this.setState({ acnher: acnherData ? acnherData.acnher : {} });
   }
 
   render() {
@@ -199,6 +225,7 @@ class ListingDetail extends React.Component {
                   value="bell"
                   inline
                   onChange={this.onValueChange}
+                  defaultChecked
                 >
                   Bell
                 </Radio>
@@ -249,5 +276,6 @@ ListingDetail.contextType = UserContext;
 
 const ListingDetailWithToast = withToast(withRouter(ListingDetail));
 ListingDetailWithToast.fetchData = ListingDetail.fetchData;
+ListingDetailWithToast.getAcnher = ListingDetail.getAcnher;
 
 export default ListingDetailWithToast;
