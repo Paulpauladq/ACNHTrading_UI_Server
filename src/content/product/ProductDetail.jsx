@@ -29,12 +29,31 @@ class ProductDetail extends React.Component {
     return result;
   }
 
+  static async getAcnher(userContext) {
+    const query = `query acnher(
+      $lookup: String! 
+      $lookupType: AcnherLookupType!
+    ) {
+      acnher(
+        lookup: $lookup 
+        lookupType: $lookupType
+      ) {
+        id email nickname switchId islandName
+        villagerList wishlist created
+      }
+    }`;
+
+    const result = await graphQLFetch(query, { lookup: `${userContext.email}`, lookupType: 'email' }, null);
+    return result;
+  }
+
   constructor() {
     super();
-    const item = store.initialData ? store.initialData.issue : null;
+    const item = store.initialData ? store.initialData.item : null;
+    const acnher = store.initialData ? store.initialData.acnher : null;
     delete store.initialData;
     this.state = {
-      item, showing: false,
+      item, showing: false, acnher,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -42,15 +61,15 @@ class ProductDetail extends React.Component {
   }
 
   componentDidMount() {
-    const { item } = this.state;
-    if (item == null) this.loadData();
+    const { item, acnher } = this.state;
+    if (item == null || acnher == null) this.loadData(this.context);
   }
 
   componentDidUpdate(prevProps) {
     const { match: { params: { id: prevId } } } = prevProps;
     const { match: { params: { id } } } = this.props;
     if (id !== prevId) {
-      this.loadData();
+      this.loadData(this.context);
     }
   }
 
@@ -65,8 +84,14 @@ class ProductDetail extends React.Component {
   async createNewListing(e) {
     e.preventDefault();
     this.hideModal();
-    const { item } = this.state;
+    const { item, acnher } = this.state;
+    const { showError, showSuccess } = this.props;
     const form = document.forms.listingAdd;
+
+    if (!form.productCount.value) {
+      showError('Number of product must be specified...');
+      return;
+    }
 
     const priceList = [];
     const bellPrice = form.bellPrice.value;
@@ -76,9 +101,14 @@ class ProductDetail extends React.Component {
     const wishlistPrice = form.wishlistPrice.value;
     if (wishlistPrice && wishlistPrice > 0) priceList.push({ productId: 'wishlist', productCount: parseInt(wishlistPrice, 10) });
 
+    if (priceList.length === 0) {
+      showError('At least one price must be specified...');
+      return;
+    }
+
     const listing = {
-      sellerId: 1,
-      sellerName: 'ppt',
+      sellerId: acnher.id,
+      sellerName: acnher.nickname,
       productId: item.variants[0].uniqueEntryId,
       productName: item.name,
       productCount: parseInt(form.productCount.value, 10),
@@ -92,7 +122,6 @@ class ProductDetail extends React.Component {
       }
     }`;
 
-    const { showError, showSuccess } = this.props;
     const data = await graphQLFetch(query, { listing }, showError);
     if (data) {
       showSuccess('Create new listing successfully');
@@ -100,15 +129,17 @@ class ProductDetail extends React.Component {
     }
   }
 
-  async loadData() {
+  async loadData(userContext) {
     const { match, showError } = this.props;
-    const data = await ProductDetail.fetchData(match, showError);
-    this.setState({ item: data ? data.item : {} });
+    const itemData = await ProductDetail.fetchData(match, showError);
+    this.setState({ item: itemData ? itemData.item : {} });
+    const acnherData = await ProductDetail.getAcnher(userContext, showError);
+    this.setState({ acnher: acnherData ? acnherData.acnher : {} });
   }
 
   render() {
-    const { item, showing } = this.state;
-    if (item == null) return null;
+    const { item, showing, acnher } = this.state;
+    if (item == null || acnher == null) return null;
 
     const { match: { params: { id } }, location: { search } } = this.props;
     const user = this.context;
@@ -183,6 +214,7 @@ class ProductDetail extends React.Component {
               <Button
                 type="button"
                 bsStyle="primary"
+                disabled={!user.signedIn}
                 onClick={this.createNewListing}
               >
                 Post
@@ -200,5 +232,6 @@ ProductDetail.contextType = UserContext;
 
 const ProductDetailWithToast = withToast(withRouter(ProductDetail));
 ProductDetailWithToast.fetchData = ProductDetail.fetchData;
+ProductDetailWithToast.getAcnher = ProductDetail.getAcnher;
 
 export default ProductDetailWithToast;
