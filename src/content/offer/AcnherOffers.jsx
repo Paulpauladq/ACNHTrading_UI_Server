@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import URLSearchParams from 'url-search-params';
 import { Pagination } from 'react-bootstrap';
 
-import ListingPanelGrid from './ListingPanelGrid.jsx';
+import OfferPanelGrid from './OfferPanelGrid.jsx';
 
 import graphQLFetch from '../../script/graphQLFetch.js';
 import withToast from '../../component/withToast.jsx';
@@ -12,32 +12,26 @@ import PageLink from '../../util/PageLink.jsx';
 
 const SECTION_SIZE = 5;
 
-class AcnherListing extends React.Component {
+class AcnherOffers extends React.Component {
   static async fetchData(sellerId, search, showError) {
     const params = new URLSearchParams(search);
-    const vars = { status: 'New', sellerId };
+    const vars = { sellerId };
 
     let page = parseInt(params.get('page'), 10);
     if (Number.isNaN(page)) page = 1;
     vars.page = page;
 
-    const query = `query listingList(
-      $status: ListingStatus
+    const query = `query offerList(
       $sellerId: Int
       $page: Int
     ) {
-      listingList(
-        status: $status
+      offerList(
         sellerId: $sellerId
         page: $page
       ) {
-        listings {
-          id status sellerId sellerName 
-          productId productName productCount 
-          thumbnail created note 
-          priceList {
-            productId productCount
-          }
+        offers {
+          id status listingId sellerId buyerId 
+          productId productCount created
         }
         pages
       }
@@ -49,38 +43,38 @@ class AcnherListing extends React.Component {
 
   constructor(props) {
     super(props);
-    const initialData = store.initialData || { listingList: {} };
+    const initialData = store.initialData || { offerList: {} };
     const {
-      listingList: { listings, pages },
+      offerList: { offers, pages },
     } = initialData;
     delete store.initialData;
     this.state = {
-      listings,
+      offers,
       pages,
     };
   }
 
   componentDidMount() {
-    const { listings } = this.state;
-    if (listings == null) this.loadData();
+    const { offers } = this.state;
+    if (offers == null) this.loadData();
   }
 
   async loadData() {
     const { showError, id } = this.props;
-    const data = await AcnherListing.fetchData(parseInt(id, 10), null, showError);
+    const data = await AcnherOffers.fetchData(parseInt(id, 10), null, showError);
     if (data) {
       this.setState({
-        listings: data.listingList.listings,
-        pages: data.listingList.pages,
+        offers: data.offerList.offers,
+        pages: data.offerList.pages,
       });
     }
   }
 
   render() {
-    const { listings } = this.state;
-    if (listings == null) return null;
+    const { offers } = this.state;
+    if (offers == null) return null;
 
-    if (listings.length === 0) return <h3>There is currently no listing</h3>;
+    if (offers.length === 0) return <h3>There is currently no offer</h3>;
 
     const { pages } = this.state;
     const { location: { search } } = this.props;
@@ -105,9 +99,9 @@ class AcnherListing extends React.Component {
 
     return (
       <React.Fragment>
-        <h3>Current Listing</h3>
-        <ListingPanelGrid
-          listings={listings}
+        <h3>Current Offers</h3>
+        <OfferPanelGrid
+          offers={offers}
         />
         <Pagination>
           <PageLink params={params} page={prevSection}>
@@ -123,7 +117,7 @@ class AcnherListing extends React.Component {
   }
 }
 
-const AcnherListingWithToast = withToast(withRouter(AcnherListing));
-AcnherListingWithToast.fetchData = AcnherListing.fetchData;
+const AcnherOffersWithToast = withToast(withRouter(AcnherOffers));
+AcnherOffersWithToast.fetchData = AcnherOffers.fetchData;
 
-export default AcnherListingWithToast;
+export default AcnherOffersWithToast;

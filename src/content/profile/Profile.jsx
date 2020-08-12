@@ -253,7 +253,7 @@ class Profile extends React.Component {
             </Modal>
           </Panel.Footer>
         </Panel>
-        <ProfileTabBar id={id} />
+        <ProfileTabBar acnher={acnher} />
       </React.Fragment>
     );
   }

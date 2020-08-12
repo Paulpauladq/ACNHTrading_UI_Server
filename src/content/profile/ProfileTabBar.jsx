@@ -2,26 +2,27 @@ import {
   Tabs, Tab,
 } from 'react-bootstrap';
 import React from 'react';
-import AcnherListing from '../listing/AcnherListing.jsx';
+import AcnherListings from '../listing/AcnherListings.jsx';
+import AcnherOffers from '../offer/AcnherOffers.jsx';
+import WishlistPanelGrid from '../wishlist/WishlistPanelGrid.jsx';
 
 function ProfileTabBar(props) {
-  const { id } = props;
+  const { acnher } = props;
 
   return (
     <React.Fragment>
       <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
         <Tab eventKey={1} title="Listings">
-          <AcnherListing id={id} />
+          <AcnherListings id={acnher.id} />
         </Tab>
         <Tab eventKey={2} title="Offers">
-          Tab 2 content
+          <AcnherOffers id={acnher.id} />
         </Tab>
         <Tab eventKey={3} title="Wishlist">
-          Tab 3 content
+          <WishlistPanelGrid wishlists={acnher.wishlist} />
         </Tab>
       </Tabs>
     </React.Fragment>
-
   );
 }
 
