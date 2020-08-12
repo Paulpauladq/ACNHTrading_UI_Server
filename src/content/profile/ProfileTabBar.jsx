@@ -7,7 +7,7 @@ import AcnherOffers from '../offer/AcnherOffers.jsx';
 import WishlistPanelGrid from '../wishlist/WishlistPanelGrid.jsx';
 
 function ProfileTabBar(props) {
-  const { acnher } = props;
+  const { acnher, disabled } = props;
 
   return (
     <React.Fragment>
@@ -19,7 +19,7 @@ function ProfileTabBar(props) {
           <AcnherOffers id={acnher.id} />
         </Tab>
         <Tab eventKey={3} title="Wishlist">
-          <WishlistPanelGrid wishlists={acnher.wishlist} />
+          <WishlistPanelGrid wishlists={acnher.wishlist} disabled={disabled} />
         </Tab>
       </Tabs>
     </React.Fragment>

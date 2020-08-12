@@ -257,7 +257,7 @@ class Profile extends React.Component {
             </Modal>
           </Panel.Footer>
         </Panel>
-        <ProfileTabBar acnher={acnher} />
+        <ProfileTabBar acnher={acnher} disabled={disabled} />
       </React.Fragment>
     );
   }

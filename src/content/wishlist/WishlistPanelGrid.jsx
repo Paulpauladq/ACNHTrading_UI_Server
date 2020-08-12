@@ -10,7 +10,7 @@ import UserContext from '../../script/UserContext.js';
 class WishlistPanelPlain extends React.Component {
   render() {
     const {
-      wishlist,
+      wishlist, disabled,
     } = this.props;
 
     const selectLocation = { pathname: `/products/details/${wishlist.uniqueEntryId}` };
@@ -25,7 +25,7 @@ class WishlistPanelPlain extends React.Component {
         </Panel.Body>
         <Panel.Footer>
           {/* TODO: add onclick and verify user */}
-          <Button bsStyle="primary" onClick={null} disabled>Delete</Button>
+          <Button bsStyle="primary" onClick={null} disabled={disabled}>Delete</Button>
         </Panel.Footer>
       </Panel>
     );
@@ -36,12 +36,13 @@ WishlistPanelPlain.contextType = UserContext;
 const WishlistPanel = withRouter(WishlistPanelPlain);
 delete WishlistPanel.contextType;
 
-export default function WishlistPanelGrid({ wishlists }) {
+export default function WishlistPanelGrid({ wishlists, disabled }) {
   const wishlistsPanels = wishlists.map((wishlist, index) => (
     <Col xs={12} md={6} lg={4}>
       <WishlistPanel
         key={wishlist.uniqueEntryId}
         wishlist={wishlist}
+        disabled={disabled}
         index={index}
       />
     </Col>
