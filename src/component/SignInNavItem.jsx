@@ -44,13 +44,13 @@ class SigninNavItem extends React.Component {
 
   constructor(props) {
     super(props);
-    const acnher = store.initialData ? store.initialData.acnher : null;
+    const currentAcnher = store.initialData ? store.initialData.currentAcnher : null;
     delete store.initialData;
 
     this.state = {
       showing: false,
       disabled: true,
-      acnher,
+      currentAcnher,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -69,14 +69,14 @@ class SigninNavItem extends React.Component {
       }
     });
 
-    const { acnher } = this.state;
-    if (acnher == null) this.loadData();
+    const { currentAcnher } = this.state;
+    if (currentAcnher == null) this.loadData();
   }
 
   async loadData() {
     const { user } = this.props;
     const data = await SigninNavItem.getAcnher(user);
-    this.setState({ acnher: data ? data.acnher : {} });
+    this.setState({ currentAcnher: data ? data.acnher : {} });
   }
 
   async signIn() {
@@ -114,6 +114,7 @@ class SigninNavItem extends React.Component {
       if (!achner) {
         await SigninNavItem.createNewAcnher(result);
       }
+      this.loadData();
     } catch (error) {
       showError(`Error signing into the app: ${error}`);
     }
@@ -133,6 +134,7 @@ class SigninNavItem extends React.Component {
       onUserChange({
         signedIn: false, givenName: '', name: '', email: '',
       });
+      this.setState({ currentAcnher: {} });
     } catch (error) {
       showError(`Error signing out: ${error}`);
     }
@@ -155,13 +157,13 @@ class SigninNavItem extends React.Component {
   render() {
     const { user } = this.props;
     if (user.signedIn) {
-      const { acnher } = this.state;
-      if (acnher == null) return null;
+      const { currentAcnher } = this.state;
+      if (currentAcnher == null) return null;
 
       return (
         <NavDropdown title={user.email} id="user-email">
           <MenuItem onClick={this.signOut}>Sign out</MenuItem>
-          <LinkContainer to={`/profile/${acnher.id}`}>
+          <LinkContainer to={`/profile/${currentAcnher.id}`}>
             <MenuItem>Profile</MenuItem>
           </LinkContainer>
         </NavDropdown>

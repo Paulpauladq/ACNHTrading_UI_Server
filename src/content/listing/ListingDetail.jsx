@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import {
   Col, Panel, Image, Thumbnail, Radio,
   ButtonToolbar, Button, Row, Modal, Form,
@@ -151,21 +150,21 @@ class ListingDetail extends React.Component {
       switch (p.productId) {
         case 'bell':
           return (
-            <Col xs={1}>
+            <Col xs={1} key="bell">
               <Thumbnail src={listingPriceImage.bell} alt="10x10" />
               {` x ${p.productCount}`}
             </Col>
           );
         case 'nmt':
           return (
-            <Col xs={1}>
+            <Col xs={1} key="nmt">
               <Thumbnail src={listingPriceImage.nmt} alt="10x10" />
               {` x ${p.productCount}`}
             </Col>
           );
         case 'wishlist':
           return (
-            <Col xs={1}>
+            <Col xs={1} key="wishlist">
               <Thumbnail src={listingPriceImage.wishlist} alt="10x10" />
               {` x ${p.productCount}`}
             </Col>
@@ -277,7 +276,7 @@ class ListingDetail extends React.Component {
 
 ListingDetail.contextType = UserContext;
 
-const ListingDetailWithToast = withToast(withRouter(ListingDetail));
+const ListingDetailWithToast = withToast(ListingDetail);
 ListingDetailWithToast.fetchData = ListingDetail.fetchData;
 ListingDetailWithToast.getAcnher = ListingDetail.getAcnher;
 
