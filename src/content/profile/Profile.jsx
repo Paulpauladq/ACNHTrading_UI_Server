@@ -20,7 +20,10 @@ class Profile extends React.Component {
         lookupType: $lookupType
       ) {
         id email nickname switchId islandName
-        villagerList wishlist created
+        villagerList created
+        wishlist {
+          uniqueEntryId itemName thumbnail
+        }
       }
     }`;
 
@@ -67,6 +70,8 @@ class Profile extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
     this.hideModal();
+    const { showError, showSuccess } = this.props;
+
     const form = document.forms.ProfileEdit;
     const changes = {
       nickname: form.nickname.value,
@@ -83,14 +88,18 @@ class Profile extends React.Component {
         changes: $changes
       ) {
         id email nickname switchId
-        islandName villagerList wishlist created
+        islandName villagerList created
+        wishlist {
+          uniqueEntryId itemName thumbnail
+        }
       }
     }`;
 
-    const data = await graphQLFetch(query, { id: parseInt(id, 10), changes });
+    const data = await graphQLFetch(query, { id: parseInt(id, 10), changes }, showError);
 
     if (data) {
       this.setState({ acnher: data.acnherUpdate });
+      showSuccess('Update user information successfully');
     }
   }
 
@@ -101,8 +110,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { acnher } = this.state;
-    const { showing } = this.state;
+    const { acnher, showing } = this.state;
     if (acnher == null) return null;
 
     const { acnher: { id } } = this.state;

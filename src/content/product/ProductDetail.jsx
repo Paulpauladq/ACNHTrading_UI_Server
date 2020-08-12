@@ -39,7 +39,10 @@ class ProductDetail extends React.Component {
         lookupType: $lookupType
       ) {
         id email nickname switchId islandName
-        villagerList wishlist created
+        villagerList created
+        wishlist {
+          uniqueEntryId itemName thumbnail
+        }
       }
     }`;
 
@@ -137,7 +140,13 @@ class ProductDetail extends React.Component {
     const changes = {
       wishlist: acnher.wishlist,
     };
-    changes.wishlist.push(item.variants[0].uniqueEntryId);
+    changes.wishlist.push(
+      {
+        uniqueEntryId: item.variants[0].uniqueEntryId,
+        itemName: item.name,
+        thumbnail: item.variants[0].image,
+      },
+    );
 
     const query = `mutation acnherUpdate(
       $id: Int!
@@ -148,7 +157,10 @@ class ProductDetail extends React.Component {
         changes: $changes
       ) {
         id email nickname switchId
-        islandName villagerList wishlist created
+        islandName villagerList created
+        wishlist {
+          uniqueEntryId itemName thumbnail
+        }
       }
     }`;
 
