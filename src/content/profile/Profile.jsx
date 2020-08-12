@@ -205,6 +205,10 @@ class Profile extends React.Component {
                 Edit
               </Button>
             </OverlayTrigger>
+            {' '}
+            <Button bsStyle="primary" href={`mailto:${acnher.email}`}>
+              Contact Me...
+            </Button>
 
             <Modal keyboard show={showing} onHide={this.hideModal}>
               <Modal.Header closeButton>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
-  Panel, Row, Col, Grid, Image, Button, Thumbnail,
+  Panel, Row, Col, Grid, Thumbnail,
 } from 'react-bootstrap';
 
 import UserContext from '../../script/UserContext.js';

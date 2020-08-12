@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
-  Panel, Row, Col, Grid, Image, Button,
+  Panel, Row, Col, Grid, Image, Button, Thumbnail,
 } from 'react-bootstrap';
 
 import UserContext from '../../script/UserContext.js';
@@ -13,7 +13,8 @@ class ListingPanelPlain extends React.Component {
       listing,
     } = this.props;
 
-    const selectLocation = { pathname: `/listings/details/${listing.id}` };
+    const listingLocation = { pathname: `/listings/details/${listing.id}` };
+    const productLocation = { pathname: `/products/details/${listing.productId}` };
     const title = `${listing.productCount} x ${listing.productName}`;
 
     return (
@@ -24,17 +25,17 @@ class ListingPanelPlain extends React.Component {
         <Panel.Body>
           <Row>
             <Col xs={6} md={4} lg={3}>
-              <Image src={listing.thumbnail} className="img-responsive" />
+              <Thumbnail id="ProductImg" className="img-fluid img-thumbnail" href={productLocation.pathname} src={listing.thumbnail} />
             </Col>
             <Col xs={6} md={8} lg={9}>
-              <p>{listing.sellerName}</p>
-              <p>{listing.note}</p>
-              <p>{listing.created.toDateString()}</p>
+              <p>{`Seller: ${listing.sellerName}`}</p>
+              <p>{`Notes: ${listing.note}`}</p>
+              <p>{`Created: ${listing.created.toDateString()}`}</p>
             </Col>
           </Row>
         </Panel.Body>
         <Panel.Footer>
-          <Button bsStyle="primary" href={selectLocation.pathname}>View Detail</Button>
+          <Button bsStyle="primary" href={listingLocation.pathname}>Listing Detail</Button>
         </Panel.Footer>
       </Panel>
     );
