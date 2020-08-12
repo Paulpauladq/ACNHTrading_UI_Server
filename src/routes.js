@@ -6,9 +6,9 @@ import Fossils from './content/product/Fossils.jsx';
 import ProductDetail from './content/product/ProductDetail.jsx';
 import LatestListings from './content/listing/LatestListings.jsx';
 import ListingDetail from './content/listing/ListingDetail.jsx';
-import NotFound from './content/NotFound.jsx';
-import Home from './content/Home.jsx';
-import About from './content/About.jsx';
+import NotFound from './content/landingpage/NotFound.jsx';
+import Home from './content/landingpage/Home.jsx';
+import About from './content/landingpage/About.jsx';
 import Profile from './content/profile/Profile.jsx';
 
 const routes = [

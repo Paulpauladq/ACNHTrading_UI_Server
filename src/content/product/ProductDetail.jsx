@@ -256,13 +256,12 @@ class ProductDetail extends React.Component {
             <ButtonToolbar>
               <Button
                 type="button"
-                bsStyle="primary"
                 disabled={!user.signedIn}
                 onClick={this.createNewListing}
               >
                 Post
               </Button>
-              <Button bsStyle="primary" onClick={this.hideModal}>Cancel</Button>
+              <Button onClick={this.hideModal}>Cancel</Button>
             </ButtonToolbar>
           </Modal.Footer>
         </Modal>

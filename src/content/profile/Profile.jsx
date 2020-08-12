@@ -206,7 +206,7 @@ class Profile extends React.Component {
               </Button>
             </OverlayTrigger>
             {' '}
-            <Button id="contact-me-btn" bsStyle="primary" href={`mailto:${acnher.email}`}>
+            <Button id="contact-me-btn" href={`mailto:${acnher.email}`}>
               Contact Me...
             </Button>
 

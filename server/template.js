@@ -51,32 +51,33 @@ export default function template(body, initialData, userData) {
      }
     
     .btn {
+        color: white;
         background-color:  #01DFA5;
         border: #01DFA5;
     }
     
-    .btn :focus {
-        background-color:  #01DFA5;
-        border: #01DFA5;
-    }
+    /*.btn :focus {*/
+    /*    background-color:  #01DFA5;*/
+    /*    border: #01DFA5;*/
+    /*}*/
     
-    .btn.btn-success.active,
-    .btn.btn-success:active {
+    .btn.active,
+    .btn:active {
       color: #fff;
       background-color: darkgrey;
       border-color: darkgrey;
-      outline: none;
+      outline: #01DFA5;
     }
-    .btn.btn-success.active.focus,
-    .btn.btn-success.active:focus,
-    .btn.btn-success.active:hover,
-    .btn.btn-success:active.focus,
-    .btn.btn-success:active:focus,
-    .btn.btn-success:active:hover {
+    .btn.active.focus,
+    .btn.active:focus,
+    .btn.active:hover,
+    .btn:active.focus,
+    .btn:active:focus,
+    .btn:active:hover {
       color: #fff;
       background-color: darkgrey;
       border-color: darkgrey;
-      outline: none;
+      outline: #01DFA5;
       box-shadow: none;
     }
 
@@ -95,8 +96,39 @@ export default function template(body, initialData, userData) {
     }
     
     .jumbotron {
+        color: darkgrey;
         font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
         font-weight: bold;
+    }
+    
+    .carousel {
+  
+        border-radius: 55px 55px 55px 55px;
+        overflow: hidden;
+        margin-bottom: 60px;
+        margin-top: 40px;
+        margin-left: 50px;
+        margin-right: 50px;
+    }   
+    
+    .carousel-caption {
+        border-radius: 55px 55px 55px 55px;
+        background-color: darkgrey;
+        opacity: 80%;
+        color: white;
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 50px;
+        font-weight: bold;
+    }
+    .carousel-caption :hover {
+        
+        opacity: 100%;
+    }
+    
+    .carousel img{
+        width: 100%;
+        height: 100%;
     }
     
     #product-thumbnail{

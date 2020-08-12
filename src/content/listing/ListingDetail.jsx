@@ -262,12 +262,11 @@ class ListingDetail extends React.Component {
             <ButtonToolbar>
               <Button
                 type="button"
-                bsStyle="primary"
                 onClick={this.createNewOffer}
               >
                 Post
               </Button>
-              <Button bsStyle="primary" onClick={this.hideModal}>Cancel</Button>
+              <Button onClick={this.hideModal}>Cancel</Button>
             </ButtonToolbar>
           </Modal.Footer>
         </Modal>

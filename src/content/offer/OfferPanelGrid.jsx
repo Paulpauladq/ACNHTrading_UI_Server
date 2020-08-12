@@ -48,7 +48,7 @@ class OfferPanelPlain extends React.Component {
           </Row>
         </Panel.Body>
         <Panel.Footer>
-          <Button bsStyle="primary" href={buyerLocation.pathname}>Buyer Information</Button>
+          <Button href={buyerLocation.pathname}>Buyer Information</Button>
         </Panel.Footer>
       </Panel>
     );
