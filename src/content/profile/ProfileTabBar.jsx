@@ -13,7 +13,7 @@ function ProfileTabBar(props) {
     <React.Fragment>
       <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
         <Tab eventKey={1} title="Listings">
-          <AcnherListings id={acnher.id} />
+          <AcnherListings id={acnher.id} hidden={disabled} />
         </Tab>
         <Tab eventKey={2} title="Offers">
           <AcnherOffers id={acnher.id} />

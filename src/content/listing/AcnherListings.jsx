@@ -15,7 +15,7 @@ const SECTION_SIZE = 5;
 class AcnherListings extends React.Component {
   static async fetchData(sellerId, search, showError) {
     const params = new URLSearchParams(search);
-    const vars = { status: 'New', sellerId };
+    const vars = { sellerId };
 
     let page = parseInt(params.get('page'), 10);
     if (Number.isNaN(page)) page = 1;
@@ -83,7 +83,7 @@ class AcnherListings extends React.Component {
     if (listings.length === 0) return <h3>There is currently no listing</h3>;
 
     const { pages } = this.state;
-    const { location: { search } } = this.props;
+    const { location: { search }, hidden } = this.props;
 
     const params = new URLSearchParams(search);
     let page = parseInt(params.get('page'), 10);
@@ -108,6 +108,7 @@ class AcnherListings extends React.Component {
         <h3>Current Listings</h3>
         <ListingPanelGrid
           listings={listings}
+          hidden={hidden}
         />
         <Pagination>
           <PageLink params={params} page={prevSection}>

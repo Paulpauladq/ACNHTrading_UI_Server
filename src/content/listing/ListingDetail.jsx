@@ -186,7 +186,9 @@ class ListingDetail extends React.Component {
                 <Image src={listing.thumbnail} responsive />
               </Col>
               <Col xs={6} md={8} lg={9}>
-                <p>{`Seller Name: ${listing.sellerName}`}</p>
+                <p>
+                  <a href={`/profile/${listing.sellerId}`}>{`Seller Name: ${listing.sellerName}`}</a>
+                </p>
                 <p className="text-muted">{`Created: ${listing.created.toDateString()}`}</p>
                 <p>{`Note: ${listing.note}`}</p>
                 <p className="text-muted">Price: </p>
