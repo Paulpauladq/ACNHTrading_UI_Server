@@ -5,7 +5,7 @@ import React from 'react';
 function CategoryNavBar() {
   return (
     <Grid fluid>
-      <ButtonToolbar>
+      <ButtonToolbar id="category-button-toolbar">
         <LinkContainer to="/listings/latest">
           <Button>Latest Listing</Button>
         </LinkContainer>

@@ -22,7 +22,7 @@ class ListingPanelPlain extends React.Component {
         <Panel.Heading>
           <Panel.Title>{title}</Panel.Title>
         </Panel.Heading>
-        <Panel.Body>
+        <Panel.Body id="listing-panel-body">
           <Row>
             <Col xs={6} md={4} lg={3}>
               <Thumbnail id="ProductImg" className="img-fluid img-thumbnail" href={productLocation.pathname} src={listing.thumbnail} />
@@ -35,7 +35,7 @@ class ListingPanelPlain extends React.Component {
           </Row>
         </Panel.Body>
         <Panel.Footer>
-          <Button bsStyle="primary" href={listingLocation.pathname}>Listing Detail</Button>
+          <Button id="listing-detail-button" bsStyle="primary" href={listingLocation.pathname}>Listing Detail</Button>
         </Panel.Footer>
       </Panel>
     );

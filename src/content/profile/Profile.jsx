@@ -132,7 +132,7 @@ class Profile extends React.Component {
           <Panel.Heading>
             <Panel.Title>User Profile Page</Panel.Title>
           </Panel.Heading>
-          <Panel.Body>
+          <Panel.Body id="profile-panel-body">
             <Row>
               <Col xs={6} md={4} lg={3}>
                 <OverlayTrigger
@@ -201,7 +201,7 @@ class Profile extends React.Component {
               delayShow={1000}
               overlay={<Tooltip id="create-issue">Edit Profile</Tooltip>}
             >
-              <Button disabled={disabled} bsStyle="primary" onClick={this.showModal}>
+              <Button id="profile-edit-btn" disabled={disabled} bsStyle="primary" onClick={this.showModal}>
                 Edit
               </Button>
             </OverlayTrigger>

@@ -13,25 +13,96 @@ export default function template(body, initialData, userData) {
   <script src="https://apis.google.com/js/api:client.js"></script>
   <script src="https://kit.fontawesome.com/a230387ecb.js" crossorigin="anonymous"></script>
   <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <style>
     table.table-hover tr {cursor: pointer;}
-    .panel-title a {display: block; width: 100%; cursor: pointer;}
-    .thumbnail{
-  background-image: url(https://i.redd.it/y5mzeig307b41.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat;
-  width: 100%;
-  height: 100%;
-}
+    .panel > .panel-heading {
+        background-color: #01DFA5;
+        color: white;
+        border-color: #01DFA5;
+    }
+    
+    .panel-body, .panel-footer, .panel-heading, .btn, .nav-tabs {
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+   .panel {
+        border-color: #01DFA5;
+    }
+    
+    .panel-footer {
+        color: #01DFA5
+    }
 
-  .navbar {
-  background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fnintendosoup.com%2Fdownload-three-cute-animal-crossing-new-horizons-wallpapers-from-walmart%2F&psig=AOvVaw34eWvMcNumt746wOr08I_0&ust=1597307494605000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOinq6OglesCFQAAAAAdAAAAABAi);
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat-y;
-}
+    .panel-empty .panel-heading{
+        border: 1px solid #dddddd;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+    
+    .jumbotron {
+        font-family: 'Baloo Tamma 2', cursive;
+        font-weight: bold;
+    }
+    
+    #ProductImg{
+        background-image: url(https://i.redd.it/y5mzeig307b41.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: repeat;
+        width: 100%;
+        height: 100%;
+    }
+
+    #profile-panel-body{
+        background-color: #01DFA5
+    }
+    
+    #listing-detail-button, #profile-edit-btn {
+        background-color:  #01DFA5;
+        border: #01DFA5;
+    }
+
+    .navbar {
+        background-image: url(https://wallpaperaccess.com/full/2317617.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: repeat;
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+    .pagination > li > a.active {
+        background-color: #01DFA5;
+        color: white;
+    }
+
+    .pagination > li > a:hover:not(.active) {background-color: darkgrey;}
+    
+    #home-nav-item, #user-email, #user-dropdown {
+        color: #01DFA5;
+    }
+    
+    #category-button-toolbar > .btn  {
+        color: darkgrey;
+    }
+    
+    #listing-panel-body {
+        color: darkgrey;
+    }
+    
+    #brand-nav-item {
+        color: #01DFA5;
+        font-size: 18px;
+    }
+
+    #user-email :hover{
+        color: grey;
+    }
   </style>
 </head>
 

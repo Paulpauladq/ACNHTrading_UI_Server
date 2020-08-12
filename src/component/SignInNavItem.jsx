@@ -159,7 +159,7 @@ class SigninNavItem extends React.Component {
       if (acnher == null) return null;
 
       return (
-        <NavDropdown title={user.email} id="user">
+        <NavDropdown title={user.email} id="user-email">
           <MenuItem onClick={this.signOut}>Sign out</MenuItem>
           <LinkContainer to={`/profile/${acnher.id}`}>
             <MenuItem>Profile</MenuItem>

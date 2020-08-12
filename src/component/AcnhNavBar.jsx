@@ -10,11 +10,11 @@ export default function AcnhNavBar({ user, onUserChange }) {
   return (
     <Navbar id="user-navbar" fluid>
       <Navbar.Header>
-        <Navbar.Brand>ACNH Trading</Navbar.Brand>
+        <Navbar.Brand id="brand-nav-item">ACNH Trading</Navbar.Brand>
       </Navbar.Header>
       <Nav>
         <LinkContainer exact to="/">
-          <NavItem>Home</NavItem>
+          <NavItem id="home-nav-item">Home</NavItem>
         </LinkContainer>
       </Nav>
       <Col sm={5}>
