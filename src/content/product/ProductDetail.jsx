@@ -58,6 +58,7 @@ class ProductDetail extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.createNewListing = this.createNewListing.bind(this);
+    this.saveItemToWishlist = this.saveItemToWishlist.bind(this);
   }
 
   componentDidMount() {
@@ -129,6 +130,36 @@ class ProductDetail extends React.Component {
     }
   }
 
+  async saveItemToWishlist() {
+    const { item, acnher } = this.state;
+    const { showError, showSuccess } = this.props;
+
+    const changes = {
+      wishlist: acnher.wishlist,
+    };
+    changes.wishlist.push(item.variants[0].uniqueEntryId);
+
+    const query = `mutation acnherUpdate(
+      $id: Int!
+      $changes: AcnherUpdateInputs!
+    ) {
+      acnherUpdate(
+        id: $id
+        changes: $changes
+      ) {
+        id email nickname switchId
+        islandName villagerList wishlist created
+      }
+    }`;
+
+    const data = await graphQLFetch(query, { id: parseInt(acnher.id, 10), changes }, showError);
+
+    if (data) {
+      this.setState({ acnher: data.acnherUpdate });
+      showSuccess('Add to wishlist successfully');
+    }
+  }
+
   async loadData(userContext) {
     const { match, showError } = this.props;
     const itemData = await ProductDetail.fetchData(match, showError);
@@ -164,7 +195,7 @@ class ProductDetail extends React.Component {
           <Panel.Footer>
             <ButtonToolbar>
               <Button disabled={!user.signedIn} bsStyle="primary" onClick={this.showModal}>Post New Listing</Button>
-              <Button disabled={!user.signedIn} bsStyle="primary">Save to Wishlist</Button>
+              <Button disabled={!user.signedIn} bsStyle="primary" onClick={this.saveItemToWishlist}>Save to Wishlist</Button>
             </ButtonToolbar>
           </Panel.Footer>
         </Panel>
