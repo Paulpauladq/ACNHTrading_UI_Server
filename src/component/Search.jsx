@@ -15,16 +15,37 @@ class Search extends React.Component {
 
   onChangeSelection({ value }) {
     const { history } = this.props;
-    history.push(`/products/details/${value}`);
+    if (value) {
+      history.push(`/products/details/${value}`);
+    }
   }
 
   async loadOptions(term) {
     if (term.length < 3) return [];
+
+    let source;
+    const { location: { pathname } } = this.props;
+    if (pathname === '/products/art') {
+      source = 'Art';
+    } else if (pathname === '/products/fossils') {
+      source = 'Fossils';
+    } else if (pathname === '/products/photos') {
+      source = 'Photos';
+    } else if (pathname === '/products/posters') {
+      source = 'Posters';
+    } else if (pathname === '/products/tools') {
+      source = 'Tools';
+    } else {
+      return [{ label: 'Not in a product page...', value: null }];
+    }
+
     const query = `query itemList(
       $search: String
+      $sourceSheet: String
     ) {
       itemList(
         search: $search
+        sourceSheet: $sourceSheet
       ) {
         items {
           name 
@@ -38,7 +59,7 @@ class Search extends React.Component {
     }`;
 
     const { showError } = this.props;
-    const data = await graphQLFetch(query, { search: term }, showError);
+    const data = await graphQLFetch(query, { search: term, sourceSheet: source }, showError);
     return data.itemList.items.map(item => ({
       label: `#${item.name} [${item.sourceSheet}]`, value: item.variants[0].uniqueEntryId,
     }));

@@ -1,17 +1,54 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
-  Panel, Row, Col, Grid, Button, Thumbnail,
+  Panel, Row, Col, Grid, Button, Thumbnail, ButtonToolbar,
 } from 'react-bootstrap';
 
 import UserContext from '../../script/UserContext.js';
+import graphQLFetch from '../../script/graphQLFetch.js';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class ListingPanelPlain extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: props.listing.status,
+    };
+    this.changeListingStatus = this.changeListingStatus.bind(this);
+  }
+
+  async changeListingStatus(newStatus) {
+    const { showError, showSuccess, listing } = this.props;
+
+    const changes = {
+      status: newStatus,
+    };
+    const query = `mutation listingUpdate(
+      $id: Int!
+      $changes: ListingUpdateInputs!
+    ) {
+      listingUpdate(
+        id: $id
+        changes: $changes
+      ) {
+        id status
+      }
+    }`;
+
+    const data = await graphQLFetch(query, { id: parseInt(listing.id, 10), changes }, showError);
+
+    if (data) {
+      this.setState({ status: data.listingUpdate.status });
+      showSuccess('Change listing successfully');
+    }
+  }
+
   render() {
     const {
       listing, showEditButton,
     } = this.props;
+
+    const { status } = this.state;
 
     const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
     const listingLocation = { pathname: `/listings/details/${listing.id}` };
@@ -31,15 +68,17 @@ class ListingPanelPlain extends React.Component {
             <Col xs={6} md={8} lg={9}>
               <p>{`Seller: ${listing.sellerName}`}</p>
               <p>{`Notes: ${listing.note}`}</p>
+              <p>{`Status: ${status}`}</p>
               <p>{`Created: ${listing.created.toDateString()}`}</p>
             </Col>
           </Row>
         </Panel.Body>
         <Panel.Footer>
-          <Button id="listing-detail-button" href={listingLocation.pathname}>Listing Detail</Button>
-          {' '}
-          {/* TODO: add remove function */}
-          <Button id="listing-delete-button" className={editButtonVisibility} href={listingLocation.pathname}>Remove</Button>
+          <ButtonToolbar>
+            <Button id="listing-detail-button" href={listingLocation.pathname}>Listing Detail</Button>
+            <Button id="listing-close-button" className={editButtonVisibility} onClick={() => this.changeListingStatus('Closed')}>Close</Button>
+            <Button id="listing-reopen-button" className={editButtonVisibility} onClick={() => this.changeListingStatus('New')}>Reopen</Button>
+          </ButtonToolbar>
         </Panel.Footer>
       </Panel>
     );
