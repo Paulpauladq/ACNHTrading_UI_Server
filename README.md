@@ -9,10 +9,39 @@
 * Links to UI Repo: https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject_ppttptsfzzsf_UI.git
 * Links to Heroku Page: https://acnh-trading-ui.herokuapp.com/
 
+## Introduction
+
+### Intro
+* This platform is built to ease the process of in-game item trading for Animal Crossing players.
+
+### Tutorial
+* After user signed in using Google API, they will enter landing page.
+* On the landing page, there's category icon (to enter the product page) and several showcase elements.
+* We can enter the latest listing page via button in landing page.
+* In the latest listing, all the items are listed and are sorted by updated time.
+* We can enter the product page via button or category icons in landing page.
+* In the product page, the user can find the product they want or they have.
+* If they own the product, they can post a listing for specific price on product page and the listing will appear at the bottom of specfic product's page.
+* if they want the product, they can browse the listing and make an offer.
+* If the offer is accepted, the seller and the buyer can contact via email and trade in the game.
+* Upon signing in, the user can visit profile page on the sign in nav item dropdown.
+* In the profile page, the user can edit their page and the visitor can contact them via email.
+* Also, all the listings and offers the user make will show up in the user's profile page.
+
+
 ## Final Iteration
 * Shengfu Zhang:
+  - Add listing-add feature in category page.
+  - Add making-offer feature in specific listing.
+  - Add wishlist feature in profile page.
+  - Add save-wishlist feature in listing page.
+  - Add listing list for specific product.
+  - Add offer list for specific listing.
+  - Add email contact function in profile page.
+  - Add latest listing page.
     
 * Ziqi Tang:
+  - Build up the landing page.
   - Add components to profile page to display the personal info and personal lisings/offers/wishlist.
   - Add profile listing component on the profile page using listing api call.
   - Add profile offer component on the profile page using offer api call.
