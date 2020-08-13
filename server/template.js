@@ -177,7 +177,7 @@ export default function template(body, initialData, userData) {
     }
 
     .navbar {
-        background-image: url(https://wallpaperaccess.com/full/2317617.jpg);
+        background-image: url(https://i.redd.it/4124xor7bmo41.jpg);
         background-size: cover;
         background-position: center;
         background-repeat: repeat;
