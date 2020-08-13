@@ -36,10 +36,10 @@ class ListingPanelPlain extends React.Component {
           </Row>
         </Panel.Body>
         <Panel.Footer>
-          <Button id="listing-detail-button" bsStyle="primary" href={listingLocation.pathname}>Listing Detail</Button>
+          <Button id="listing-detail-button" href={listingLocation.pathname}>Listing Detail</Button>
           {' '}
           {/* TODO: add remove function */}
-          <Button id="listing-delete-button" className={editButtonVisibility} bsStyle="primary" href={listingLocation.pathname}>Remove</Button>
+          <Button id="listing-delete-button" className={editButtonVisibility} href={listingLocation.pathname}>Remove</Button>
         </Panel.Footer>
       </Panel>
     );

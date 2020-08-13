@@ -106,10 +106,10 @@ export default function template(body, initialData, userData) {
   
         border-radius: 55px 55px 55px 55px;
         overflow: hidden;
-        margin-bottom: 60px;
-        margin-top: 40px;
-        margin-left: 50px;
-        margin-right: 50px;
+        margin-bottom: 10%;
+        margin-top: 10%;
+        margin-left: 10%;
+        margin-right: 10%;
     }   
     
     .carousel-caption {
