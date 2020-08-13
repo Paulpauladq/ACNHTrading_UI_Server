@@ -40,7 +40,7 @@ class ListingPanelPlain extends React.Component {
 
     if (data) {
       this.setState({ status: data.listingUpdate.status });
-      showSuccess('Change listing successfully');
+      showSuccess('Change listing status successfully');
     }
   }
 

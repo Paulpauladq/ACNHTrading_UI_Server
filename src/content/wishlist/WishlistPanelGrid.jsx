@@ -14,7 +14,7 @@ class WishlistPanelPlain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      wishlistItemCount: props.acnher.wishlist.length,
+      deleted: false,
     };
     this.deleteWishlistItem = this.deleteWishlistItem.bind(this);
   }
@@ -50,16 +50,18 @@ class WishlistPanelPlain extends React.Component {
     const data = await graphQLFetch(query, { id: parseInt(acnher.id, 10), changes }, showError);
 
     if (data) {
-      this.setState({ wishlistItemCount: data.acnherUpdate.wishlist.length });
-      showSuccess('Delete item successfully, refresh to see the changes...');
+      this.setState({ deleted: true });
+      showSuccess('Delete item successfully...');
     }
   }
 
   render() {
+    const { deleted } = this.state;
+    if (deleted) {
+      return null;
+    }
+
     const { wishlist, showEditButton } = this.props;
-
-    const { wishlistItemCount } = this.state;
-
     const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
     const selectLocation = { pathname: `/products/details/${wishlist.uniqueEntryId}` };
 
@@ -72,7 +74,6 @@ class WishlistPanelPlain extends React.Component {
           <Thumbnail
             href={selectLocation.pathname}
             src={wishlist.thumbnail}
-            alt={wishlistItemCount}
           />
         </Panel.Body>
         <Panel.Footer>

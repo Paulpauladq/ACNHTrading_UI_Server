@@ -1,18 +1,60 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
-  Panel, Row, Col, Grid, Thumbnail, Button,
+  Panel, Row, Col, Grid, Thumbnail, Button, ButtonToolbar,
 } from 'react-bootstrap';
 
 import listingPriceImage from '../../script/listingPriceImage.js';
 import UserContext from '../../script/UserContext.js';
+import withToast from '../../component/withToast.jsx';
+import graphQLFetch from '../../script/graphQLFetch.js';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class OfferPanelPlain extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: props.offer.status,
+    };
+    this.changeOfferStatus = this.changeOfferStatus.bind(this);
+  }
+
+  async changeOfferStatus(newStatus) {
+    const { showError, showSuccess, offer } = this.props;
+
+    const changes = {
+      status: newStatus,
+    };
+    const query = `mutation offerUpdate(
+      $id: Int!
+      $changes: OfferUpdateInputs!
+    ) {
+      offerUpdate(
+        id: $id
+        changes: $changes
+      ) {
+        id status
+      }
+    }`;
+
+    const data = await graphQLFetch(query, { id: parseInt(offer.id, 10), changes }, showError);
+
+    if (data) {
+      this.setState({ status: data.offerUpdate.status });
+      showSuccess('Change offer status successfully');
+    }
+  }
+
   render() {
     const {
-      offer,
+      offer, showEditButton,
     } = this.props;
+
+    const { status } = this.state;
+
+    const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
+    const buyerLocation = { pathname: `/profile/${offer.buyerId}` };
+    const listingLocation = { pathname: `/listings/details/${offer.listingId}` };
 
     let image;
     if (offer.productId === 'bell') {
@@ -22,9 +64,6 @@ class OfferPanelPlain extends React.Component {
     } else {
       image = listingPriceImage.wishlist;
     }
-
-    const buyerLocation = { pathname: `/profile/${offer.buyerId}` };
-    const listingLocation = { pathname: `/listings/details/${offer.listingId}` };
 
     return (
       <Panel bsStyle="primary">
@@ -42,13 +81,17 @@ class OfferPanelPlain extends React.Component {
               {` x ${offer.productCount}`}
             </Col>
             <Col xs={6} md={8} lg={9}>
-              <p>{`Status: ${offer.status}`}</p>
+              <p>{`Status: ${status}`}</p>
               <p>{`Created: ${offer.created.toDateString()}`}</p>
             </Col>
           </Row>
         </Panel.Body>
         <Panel.Footer>
-          <Button href={buyerLocation.pathname}>Buyer Information</Button>
+          <ButtonToolbar>
+            <Button id="buyer-detail-button" href={buyerLocation.pathname}>Buyer Information</Button>
+            <Button id="offer-accept-button" className={editButtonVisibility} onClick={() => this.changeOfferStatus('Accepted')}>Accepted</Button>
+            <Button id="offer-reject-button" className={editButtonVisibility} onClick={() => this.changeOfferStatus('Rejected')}>Rejected</Button>
+          </ButtonToolbar>
         </Panel.Footer>
       </Panel>
     );
@@ -56,14 +99,15 @@ class OfferPanelPlain extends React.Component {
 }
 
 OfferPanelPlain.contextType = UserContext;
-const OfferPanel = withRouter(OfferPanelPlain);
+const OfferPanel = withToast(withRouter(OfferPanelPlain));
 delete OfferPanel.contextType;
 
-export default function OfferPanelGrid({ offers }) {
+export default function OfferPanelGrid({ offers, showEditButton }) {
   const offerPanels = offers.map((offer, index) => (
     <Col key={offer.id} xs={12} md={6} lg={4}>
       <OfferPanel
         offer={offer}
+        showEditButton={showEditButton}
         index={index}
       />
     </Col>
