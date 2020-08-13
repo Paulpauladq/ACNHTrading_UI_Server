@@ -124,7 +124,8 @@ class Profile extends React.Component {
     }
 
     const user = this.context;
-    const disabled = !user.signedIn || (user.email !== acnher.email);
+    const showEditButton = user.signedIn && (user.email === acnher.email);
+    const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
 
     return (
       <React.Fragment>
@@ -196,18 +197,12 @@ class Profile extends React.Component {
             </Row>
           </Panel.Body>
           <Panel.Footer>
-            <OverlayTrigger
-              placement="right"
-              delayShow={1000}
-              overlay={<Tooltip id="create-issue">Edit Profile</Tooltip>}
-            >
-              <Button id="profile-edit-btn" disabled={disabled} bsStyle="primary" onClick={this.showModal}>
-                Edit
-              </Button>
-            </OverlayTrigger>
-            {' '}
             <Button id="contact-me-btn" href={`mailto:${acnher.email}`}>
               Contact Me...
+            </Button>
+            {' '}
+            <Button id="profile-edit-btn" className={editButtonVisibility} bsStyle="primary" onClick={this.showModal}>
+              Edit
             </Button>
 
             <Modal keyboard show={showing} onHide={this.hideModal}>
@@ -257,7 +252,7 @@ class Profile extends React.Component {
             </Modal>
           </Panel.Footer>
         </Panel>
-        <ProfileTabBar acnher={acnher} disabled={disabled} />
+        <ProfileTabBar key={acnher.id} acnher={acnher} showEditButton={showEditButton} />
       </React.Fragment>
     );
   }

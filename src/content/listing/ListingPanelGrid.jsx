@@ -10,10 +10,10 @@ import UserContext from '../../script/UserContext.js';
 class ListingPanelPlain extends React.Component {
   render() {
     const {
-      listing, hidden,
+      listing, showEditButton,
     } = this.props;
 
-    const editButtonVisibility = hidden ? 'invisible' : 'visible';
+    const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
     const listingLocation = { pathname: `/listings/details/${listing.id}` };
     const productLocation = { pathname: `/products/details/${listing.productId}` };
     const title = `${listing.productCount} x ${listing.productName}`;
@@ -50,13 +50,13 @@ ListingPanelPlain.contextType = UserContext;
 const ListingPanel = withRouter(ListingPanelPlain);
 delete ListingPanel.contextType;
 
-export default function ListingPanelGrid({ listings, hidden }) {
+export default function ListingPanelGrid({ listings, showEditButton }) {
   const listingPanels = listings.map((listing, index) => (
     <Col xs={12} md={6} lg={4}>
       <ListingPanel
         key={listing.id}
         listing={listing}
-        hidden={hidden}
+        showEditButton={showEditButton}
         index={index}
       />
     </Col>

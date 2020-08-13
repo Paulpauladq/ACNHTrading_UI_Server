@@ -10,9 +10,10 @@ import UserContext from '../../script/UserContext.js';
 class WishlistPanelPlain extends React.Component {
   render() {
     const {
-      wishlist, disabled,
+      wishlist, showEditButton,
     } = this.props;
 
+    const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
     const selectLocation = { pathname: `/products/details/${wishlist.uniqueEntryId}` };
 
     return (
@@ -25,7 +26,7 @@ class WishlistPanelPlain extends React.Component {
         </Panel.Body>
         <Panel.Footer>
           {/* TODO: add onclick and verify user */}
-          <Button bsStyle="primary" onClick={null} disabled={disabled}>Delete</Button>
+          <Button bsStyle="primary" onClick={null} className={editButtonVisibility}>Delete</Button>
         </Panel.Footer>
       </Panel>
     );
@@ -36,19 +37,19 @@ WishlistPanelPlain.contextType = UserContext;
 const WishlistPanel = withRouter(WishlistPanelPlain);
 delete WishlistPanel.contextType;
 
-export default function WishlistPanelGrid({ wishlists, disabled }) {
-  const wishlistsPanels = wishlists.map((wishlist, index) => (
+export default function WishlistPanelGrid({ acnher, showEditButton }) {
+  const wishlistsPanels = acnher.wishlist.map((wishlist, index) => (
     <Col xs={12} md={6} lg={4}>
       <WishlistPanel
         key={wishlist.uniqueEntryId}
         wishlist={wishlist}
-        disabled={disabled}
+        showEditButton={showEditButton}
         index={index}
       />
     </Col>
   ));
 
-  if (wishlists.length === 0) return <h3>There is currently nothing in your wishlist</h3>;
+  if (acnher.wishlist.length === 0) return <h3>There is currently nothing in your wishlist</h3>;
 
   return (
     <React.Fragment>

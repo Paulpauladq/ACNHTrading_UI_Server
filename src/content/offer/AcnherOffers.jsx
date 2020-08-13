@@ -60,8 +60,8 @@ class AcnherOffers extends React.Component {
   }
 
   async loadData() {
-    const { showError, id } = this.props;
-    const data = await AcnherOffers.fetchData(parseInt(id, 10), null, showError);
+    const { showError, acnher } = this.props;
+    const data = await AcnherOffers.fetchData(parseInt(acnher.id, 10), null, showError);
     if (data) {
       this.setState({
         offers: data.offerList.offers,

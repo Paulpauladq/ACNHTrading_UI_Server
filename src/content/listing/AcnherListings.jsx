@@ -65,9 +65,17 @@ class AcnherListings extends React.Component {
     if (listings == null) this.loadData();
   }
 
+  componentDidUpdate(prevProps) {
+    const { match: { params: { id: prevId } } } = prevProps;
+    const { match: { params: { id } } } = this.props;
+    if (id !== prevId) {
+      this.loadData();
+    }
+  }
+
   async loadData() {
-    const { showError, id } = this.props;
-    const data = await AcnherListings.fetchData(parseInt(id, 10), null, showError);
+    const { showError, acnher } = this.props;
+    const data = await AcnherListings.fetchData(parseInt(acnher.id, 10), null, showError);
     if (data) {
       this.setState({
         listings: data.listingList.listings,
@@ -83,7 +91,7 @@ class AcnherListings extends React.Component {
     if (listings.length === 0) return <h3>There is currently no listing</h3>;
 
     const { pages } = this.state;
-    const { location: { search }, hidden } = this.props;
+    const { location: { search }, showEditButton } = this.props;
 
     const params = new URLSearchParams(search);
     let page = parseInt(params.get('page'), 10);
@@ -108,7 +116,7 @@ class AcnherListings extends React.Component {
         <h3>Current Listings</h3>
         <ListingPanelGrid
           listings={listings}
-          hidden={hidden}
+          showEditButton={showEditButton}
         />
         <Pagination>
           <PageLink params={params} page={prevSection}>
