@@ -27,8 +27,8 @@ export default class About extends React.Component {
     const { apiAbout } = this.state;
     return (
       <div className="text-center">
-        <h3>ACNH Trading version 1.0</h3>
-        <h4>
+        <h3 id="about-h3">ACNH Trading version 1.0</h3>
+        <h4 id="about-h4">
           {apiAbout}
         </h4>
       </div>

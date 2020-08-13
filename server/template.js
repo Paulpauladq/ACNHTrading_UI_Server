@@ -104,6 +104,12 @@ export default function template(body, initialData, userData) {
         font-weight: bold;
     }
     
+    #about-h3, #about-h4, #ac-footer {
+        font-family: 'Baloo Tamma 2', cursive;
+        font-weight: bold;
+        color: darkgrey;
+    } 
+       
     .jumbotron {
         color: darkgrey;
         font-family: 'Baloo Tamma 2', cursive;

@@ -4,7 +4,7 @@ function Footer() {
   return (
     <small>
       <hr />
-      <p className="text-center">
+      <p id="ac-footer" className="text-center">
         Developer: Shengfu Zhang, Ziqi Tang
       </p>
     </small>
