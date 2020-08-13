@@ -210,7 +210,7 @@ class ProductDetail extends React.Component {
             </ButtonToolbar>
           </Panel.Footer>
         </Panel>
-        <ProductListings productId={id} location={search} />
+        <ProductListings key={id} productId={id} location={search} />
 
         <Modal id="product-detail-modal" keyboard show={showing} onHide={this.hideModal}>
           <Modal.Header closeButton>

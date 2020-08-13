@@ -15,21 +15,32 @@ class Search extends React.Component {
 
   onChangeSelection({ value }) {
     const { history } = this.props;
-    history.push(`/edit/${value}`);
+    history.push(`/products/details/${value}`);
   }
 
   async loadOptions(term) {
     if (term.length < 3) return [];
-    const query = `query issueList($search: String) {
-      issueList(search: $search) {
-        issues {id title}
+    const query = `query itemList(
+      $search: String
+    ) {
+      itemList(
+        search: $search
+      ) {
+        items {
+          name 
+          sourceSheet 
+          variants { 
+            uniqueEntryId 
+            image 
+          }
+        }
       }
     }`;
 
     const { showError } = this.props;
     const data = await graphQLFetch(query, { search: term }, showError);
-    return data.issueList.issues.map(issue => ({
-      label: `#${issue.id}: ${issue.title}`, value: issue.id,
+    return data.itemList.items.map(item => ({
+      label: `#${item.name} [${item.sourceSheet}]`, value: item.variants[0].uniqueEntryId,
     }));
   }
 
