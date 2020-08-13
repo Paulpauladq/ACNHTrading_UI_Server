@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import {
   Col, Panel, Image, Modal, Form, FormGroup, ControlLabel,
   FormControl, ButtonToolbar, Button, Row,
@@ -272,7 +271,7 @@ class ProductDetail extends React.Component {
 
 ProductDetail.contextType = UserContext;
 
-const ProductDetailWithToast = withToast(withRouter(ProductDetail));
+const ProductDetailWithToast = withToast(ProductDetail);
 ProductDetailWithToast.fetchData = ProductDetail.fetchData;
 ProductDetailWithToast.getAcnher = ProductDetail.getAcnher;
 

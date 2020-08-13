@@ -37,9 +37,8 @@ delete ProductPanel.contextType;
 
 export default function ProductPanelGrid({ products }) {
   const productPanels = products.map((product, index) => (
-    <Col xs={6} md={4} lg={3}>
+    <Col key={product.variants[0].uniqueEntryId} xs={6} md={4} lg={3}>
       <ProductPanel
-        key={product.variants[0].uniqueEntryId}
         product={product}
         index={index}
       />

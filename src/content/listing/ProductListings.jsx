@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import URLSearchParams from 'url-search-params';
 import { Pagination } from 'react-bootstrap';
 
@@ -132,7 +133,7 @@ class ProductListings extends React.Component {
   }
 }
 
-const ProductListingsWithToast = withToast(ProductListings);
+const ProductListingsWithToast = withToast(withRouter(ProductListings));
 ProductListingsWithToast.fetchData = ProductListings.fetchData;
 
 export default ProductListingsWithToast;
