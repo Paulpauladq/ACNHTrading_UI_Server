@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Jumbotron, Button, Carousel, Image, Grid, Row, Col,
 } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function Home() {
   return (
@@ -24,27 +25,40 @@ function Home() {
         <Grid align="center">
           <Row>
             <Col lg={2} xs={6} md={4}>
-              <Image src="https://acnhcdn.com/latest/FtrIcon/FtrBearS_Remake_0_3.png" circle />
+              <LinkContainer to="/listings/latest">
+                <Image src="https://acnhcdn.com/latest/FtrIcon/FtrBearS_Remake_0_3.png" circle />
+              </LinkContainer>
               <h3 id="latest-h3">Latest</h3>
             </Col>
             <Col id="art-col" lg={2} xs={6} md={4}>
-              <Image id="art-img" src="https://acnhcdn.com/latest/FtrIcon/FtrSculptureDiskobolos.png" circle />
+              <LinkContainer to="/products/art">
+                <Image id="art-img" src="https://acnhcdn.com/latest/FtrIcon/FtrSculptureDiskobolos.png" circle />
+              </LinkContainer>
               <h3 id="art-h3">Arts</h3>
+
             </Col>
             <Col lg={2} xs={6} md={4}>
-              <Image id="photo-img" src="https://acnhcdn.com/latest/FtrIcon/BromideNpcNmlCat19_Remake_3_0.png" circle />
+              <LinkContainer to="/products/photos">
+                <Image id="photo-img" src="https://acnhcdn.com/latest/FtrIcon/BromideNpcNmlCat19_Remake_3_0.png" circle />
+              </LinkContainer>
               <h3 id="photo-h3">Photos</h3>
             </Col>
             <Col lg={2} xs={6} md={4}>
-              <Image id="poster-img" src="https://acnhcdn.com/latest/FtrIcon/PosterNpcNmlSqu17.png" circle />
+              <LinkContainer to="/products/posters">
+                <Image id="poster-img" src="https://acnhcdn.com/latest/FtrIcon/PosterNpcNmlSqu17.png" circle />
+              </LinkContainer>
               <h3 id="poster-h3">Posters</h3>
             </Col>
             <Col lg={2} xs={6} md={4}>
-              <Image id="tool-img" src="https://acnhcdn.com/latest/FtrIcon/ToolNetPattern_Remake_4_0.png" circle />
+              <LinkContainer to="/products/tools">
+                <Image id="tool-img" src="https://acnhcdn.com/latest/FtrIcon/ToolNetPattern_Remake_4_0.png" circle />
+              </LinkContainer>
               <h3 id="tool-h3">Tools</h3>
             </Col>
             <Col lg={2} xs={6} md={4}>
-              <Image id="fossil-img" src="https://acnhcdn.com/latest/FtrIcon/FtrFossilTRexA.png" circle />
+              <LinkContainer to="/products/fossils">
+                <Image id="fossil-img" src="https://acnhcdn.com/latest/FtrIcon/FtrFossilTRexA.png" circle />
+              </LinkContainer>
               <h3 id="fossil-h3">Fossils</h3>
             </Col>
           </Row>
