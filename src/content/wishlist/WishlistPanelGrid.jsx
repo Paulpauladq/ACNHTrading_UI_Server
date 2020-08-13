@@ -6,13 +6,59 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import UserContext from '../../script/UserContext.js';
+import withToast from '../../component/withToast.jsx';
+import graphQLFetch from '../../script/graphQLFetch.js';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class WishlistPanelPlain extends React.Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      wishlistItemCount: props.acnher.wishlist.length,
+    };
+    this.deleteWishlistItem = this.deleteWishlistItem.bind(this);
+  }
+
+  async deleteWishlistItem() {
     const {
-      wishlist, showEditButton,
+      showError, showSuccess, wishlist, acnher,
     } = this.props;
+
+    const index = acnher.wishlist.findIndex(item => item.uniqueEntryId === wishlist.uniqueEntryId);
+    const newWishlist = [...acnher.wishlist];
+    newWishlist.splice(index, 1);
+
+    const changes = {
+      wishlist: newWishlist,
+    };
+    const query = `mutation acnherUpdate(
+      $id: Int!
+      $changes: AcnherUpdateInputs!
+    ) {
+      acnherUpdate(
+        id: $id
+        changes: $changes
+      ) {
+        id email nickname switchId 
+        islandName villagerList created 
+        wishlist {
+          uniqueEntryId itemName thumbnail
+        }
+      }
+    }`;
+
+    const data = await graphQLFetch(query, { id: parseInt(acnher.id, 10), changes }, showError);
+
+    if (data) {
+      this.setState({ wishlistItemCount: data.acnherUpdate.wishlist.length });
+      showSuccess('Delete item successfully, refresh to see the changes...');
+    }
+  }
+
+  render() {
+    const { wishlist, showEditButton } = this.props;
+
+    const { wishlistItemCount } = this.state;
 
     const editButtonVisibility = showEditButton ? 'visible' : 'invisible';
     const selectLocation = { pathname: `/products/details/${wishlist.uniqueEntryId}` };
@@ -23,11 +69,14 @@ class WishlistPanelPlain extends React.Component {
           <Panel.Title>{wishlist.itemName}</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <Thumbnail href={selectLocation.pathname} src={wishlist.thumbnail} />
+          <Thumbnail
+            href={selectLocation.pathname}
+            src={wishlist.thumbnail}
+            alt={wishlistItemCount}
+          />
         </Panel.Body>
         <Panel.Footer>
-          {/* TODO: add onclick and verify user */}
-          <Button bsStyle="primary" onClick={null} className={editButtonVisibility}>Delete</Button>
+          <Button bsStyle="primary" onClick={this.deleteWishlistItem} className={editButtonVisibility}>Delete</Button>
         </Panel.Footer>
       </Panel>
     );
@@ -35,13 +84,14 @@ class WishlistPanelPlain extends React.Component {
 }
 
 WishlistPanelPlain.contextType = UserContext;
-const WishlistPanel = withRouter(WishlistPanelPlain);
+const WishlistPanel = withToast(withRouter(WishlistPanelPlain));
 delete WishlistPanel.contextType;
 
 export default function WishlistPanelGrid({ acnher, showEditButton }) {
   const wishlistsPanels = acnher.wishlist.map((wishlist, index) => (
     <Col key={uuidv4()} xs={12} md={6} lg={4}>
       <WishlistPanel
+        acnher={acnher}
         wishlist={wishlist}
         showEditButton={showEditButton}
         index={index}

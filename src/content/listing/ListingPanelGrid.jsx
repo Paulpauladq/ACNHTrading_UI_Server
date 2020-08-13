@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 
 import UserContext from '../../script/UserContext.js';
+import withToast from '../../component/withToast.jsx';
 import graphQLFetch from '../../script/graphQLFetch.js';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -86,7 +87,7 @@ class ListingPanelPlain extends React.Component {
 }
 
 ListingPanelPlain.contextType = UserContext;
-const ListingPanel = withRouter(ListingPanelPlain);
+const ListingPanel = withToast(withRouter(ListingPanelPlain));
 delete ListingPanel.contextType;
 
 export default function ListingPanelGrid({ listings, showEditButton }) {
