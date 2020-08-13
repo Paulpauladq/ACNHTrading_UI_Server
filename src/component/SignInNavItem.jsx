@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  NavItem, Modal, Button, NavDropdown, MenuItem,
+  NavItem, Modal, Button, NavDropdown, MenuItem, Image,
 } from 'react-bootstrap';
 
 import { LinkContainer } from 'react-router-bootstrap';
@@ -187,7 +187,7 @@ class SigninNavItem extends React.Component {
               bsStyle="primary"
               onClick={this.signIn}
             >
-              <img src="https://goo.gl/4yjp6B" alt="Sign In" />
+              <Image src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" alt="Sign In" />
             </Button>
           </Modal.Body>
           <Modal.Footer>
