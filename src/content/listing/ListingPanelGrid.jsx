@@ -87,7 +87,7 @@ class ListingPanelPlain extends React.Component {
 }
 
 ListingPanelPlain.contextType = UserContext;
-const ListingPanel = withToast(withRouter(ListingPanelPlain));
+const ListingPanel = withRouter(withToast(ListingPanelPlain));
 delete ListingPanel.contextType;
 
 export default function ListingPanelGrid({ listings, showEditButton }) {

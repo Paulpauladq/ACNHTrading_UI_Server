@@ -99,7 +99,7 @@ class OfferPanelPlain extends React.Component {
 }
 
 OfferPanelPlain.contextType = UserContext;
-const OfferPanel = withToast(withRouter(OfferPanelPlain));
+const OfferPanel = withRouter(withToast(OfferPanelPlain));
 delete OfferPanel.contextType;
 
 export default function OfferPanelGrid({ offers, showEditButton }) {

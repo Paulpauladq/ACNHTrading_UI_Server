@@ -85,7 +85,7 @@ class WishlistPanelPlain extends React.Component {
 }
 
 WishlistPanelPlain.contextType = UserContext;
-const WishlistPanel = withToast(withRouter(WishlistPanelPlain));
+const WishlistPanel = withRouter(withToast(WishlistPanelPlain));
 delete WishlistPanel.contextType;
 
 export default function WishlistPanelGrid({ acnher, showEditButton }) {

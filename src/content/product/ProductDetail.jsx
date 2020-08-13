@@ -198,8 +198,8 @@ class ProductDetail extends React.Component {
                 <Image src={item.variants[0].image} responsive />
               </Col>
               <Col xs={6} md={8} lg={9}>
-                <p>{item.variants[0].uniqueEntryId}</p>
-                <p>{item.sourceSheet}</p>
+                <p>{`Product Id: ${item.variants[0].uniqueEntryId}`}</p>
+                <p>{`Product Category: ${item.sourceSheet}`}</p>
               </Col>
             </Row>
           </Panel.Body>
