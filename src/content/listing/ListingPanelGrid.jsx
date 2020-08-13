@@ -52,9 +52,8 @@ delete ListingPanel.contextType;
 
 export default function ListingPanelGrid({ listings, showEditButton }) {
   const listingPanels = listings.map((listing, index) => (
-    <Col xs={12} md={6} lg={4}>
+    <Col key={listing.id} xs={12} md={6} lg={4}>
       <ListingPanel
-        key={listing.id}
         listing={listing}
         showEditButton={showEditButton}
         index={index}

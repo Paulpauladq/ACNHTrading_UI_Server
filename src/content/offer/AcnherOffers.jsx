@@ -77,7 +77,7 @@ class AcnherOffers extends React.Component {
     if (offers.length === 0) return <h3>There is currently no offer</h3>;
 
     const { pages } = this.state;
-    const { location: { search } } = this.props;
+    const { location: { search }, acnher } = this.props;
 
     const params = new URLSearchParams(search);
     let page = parseInt(params.get('page'), 10);
@@ -101,6 +101,7 @@ class AcnherOffers extends React.Component {
       <React.Fragment>
         <h3>Current Offers</h3>
         <OfferPanelGrid
+          key={acnher.id}
           offers={offers}
         />
         <Pagination>

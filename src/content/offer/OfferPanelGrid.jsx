@@ -61,9 +61,8 @@ delete OfferPanel.contextType;
 
 export default function OfferPanelGrid({ offers }) {
   const offerPanels = offers.map((offer, index) => (
-    <Col xs={12} md={6} lg={4}>
+    <Col key={offer.id} xs={12} md={6} lg={4}>
       <OfferPanel
-        key={offer.id}
         offer={offer}
         index={index}
       />

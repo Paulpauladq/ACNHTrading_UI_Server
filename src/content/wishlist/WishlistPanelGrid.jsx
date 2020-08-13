@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import {
   Panel, Row, Col, Grid, Button, Thumbnail,
 } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 
 import UserContext from '../../script/UserContext.js';
 
@@ -39,9 +40,8 @@ delete WishlistPanel.contextType;
 
 export default function WishlistPanelGrid({ acnher, showEditButton }) {
   const wishlistsPanels = acnher.wishlist.map((wishlist, index) => (
-    <Col xs={12} md={6} lg={4}>
+    <Col key={uuidv4()} xs={12} md={6} lg={4}>
       <WishlistPanel
-        key={wishlist.uniqueEntryId}
         wishlist={wishlist}
         showEditButton={showEditButton}
         index={index}
