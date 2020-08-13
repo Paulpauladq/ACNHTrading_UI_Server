@@ -2,9 +2,6 @@ import React from 'react';
 import {
   Jumbotron, Button, Carousel, Image,
 } from 'react-bootstrap';
-import {
-  Link,
-} from 'react-router-dom';
 
 function Home() {
   return (
@@ -32,7 +29,7 @@ function Home() {
           />
 
           <Carousel.Caption>
-            <h3>5-Star Design Showcase 1</h3>
+            <h3>Kalani Island Tour by Tagback TV</h3>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -44,7 +41,7 @@ function Home() {
             onClick={() => window.open('https://www.youtube.com/watch?v=ldmYoPLKiWo', '_blank')}
           />
           <Carousel.Caption>
-            <h3>5-Star Design Showcase 2</h3>
+            <h3>5-Star Island Tour by Tagback TV</h3>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -56,7 +53,7 @@ function Home() {
             onClick={() => window.open('https://www.youtube.com/watch?v=FukxbM4iM4M', '_blank')}
           />
           <Carousel.Caption>
-            <h3>5-Star Design Showcase 3</h3>
+            <h3>No Time Travel Island Tour by Tagback TV</h3>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
