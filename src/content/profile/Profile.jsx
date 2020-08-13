@@ -241,12 +241,11 @@ class Profile extends React.Component {
                 <ButtonToolbar>
                   <Button
                     type="button"
-                    bsStyle="primary"
                     onClick={this.handleSubmit}
                   >
                     Submit
                   </Button>
-                  <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
+                  <Button onClick={this.hideModal}>Cancel</Button>
                 </ButtonToolbar>
               </Modal.Footer>
             </Modal>

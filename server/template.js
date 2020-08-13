@@ -49,17 +49,19 @@ export default function template(body, initialData, userData) {
         font-size: 15px;
         font-weight: bold;
      }
+     
+    #landing-page-h1, #landing-showcase-h1 {
+        color: darkgrey;
+        font-family: 'Baloo Tamma 2', cursive;
+        font-weight: bold;
+        text-align:center;
+    }
     
     .btn {
         color: white;
         background-color:  #01DFA5;
         border: #01DFA5;
     }
-    
-    /*.btn :focus {*/
-    /*    background-color:  #01DFA5;*/
-    /*    border: #01DFA5;*/
-    /*}*/
     
     .btn.active,
     .btn:active {
@@ -95,6 +97,13 @@ export default function template(body, initialData, userData) {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
     
+    #latest-h3, #art-h3, #photo-h3, #poster-h3, #tool-h3, #fossil-h3 {
+        color: darkgrey;
+        font-family: 'Baloo Tamma 2', cursive;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
     .jumbotron {
         color: darkgrey;
         font-family: 'Baloo Tamma 2', cursive;
@@ -107,7 +116,6 @@ export default function template(body, initialData, userData) {
         border-radius: 55px 55px 55px 55px;
         overflow: hidden;
         margin-bottom: 10%;
-        margin-top: 10%;
         margin-left: 10%;
         margin-right: 10%;
     }   
@@ -121,8 +129,8 @@ export default function template(body, initialData, userData) {
         font-size: 50px;
         font-weight: bold;
     }
+    
     .carousel-caption :hover {
-        
         opacity: 100%;
     }
     
